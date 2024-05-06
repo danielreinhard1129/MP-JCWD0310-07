@@ -1,10 +1,15 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import BrowseEvents from "@/components/BrowseEvents";
+import CategoriesCards from "@/components/Categories";
+import Hero from "@/components/Hero";
+import TopEvent from "@/components/TopEvent";
 
 export default function Home() {
   return (
-   <div>
-    <h1 className='text-7xl text-yellow-500'>Firza kang santet</h1>
-   </div>
+   <>
+   <Hero />
+   <BrowseEvents />
+   <CategoriesCards />
+   <TopEvent />
+   </>
   )
 }
