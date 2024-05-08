@@ -14,6 +14,7 @@ const Footer = () => {
 
           <div className="flex flex-wrap gap-20 md:flex-1">
             {FOOTER_LINKS.map((columns) => (
+              // eslint-disable-next-line react/jsx-key
               <FooterColumn title={columns.title}>
                 <ul className="regular-14 text-gray-30 flex flex-col gap-4">
                   {columns.links.map((link) => (
