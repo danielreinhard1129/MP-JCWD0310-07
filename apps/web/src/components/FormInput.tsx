@@ -12,8 +12,8 @@ interface FormInputProps {
   placeholder: string;
   isError: boolean;
   error: string | undefined;
-  handleChange: FormikHandlers['handleChange'];
-  handleBlur: FormikHandlers['handleBlur'];
+  onChange: FormikHandlers['handleChange'];
+  onBlur: FormikHandlers['handleBlur'];
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -24,9 +24,11 @@ const FormInput: React.FC<FormInputProps> = ({
   placeholder,
   value,
   error,
-  handleChange,
-  handleBlur,
+  onChange,
+  onBlur,
 }) => {
+
+  const adjustedPlaceholder = type === 'date' ? 'YYYY-MM-DD' : type === 'time' ? 'HH:MM' : placeholder;
   return (
     <div className="flex flex-col space-y-1.5">
       <Label htmlFor={name} className={isError ? 'text-red-500' : 'text-black'}>
@@ -35,9 +37,9 @@ const FormInput: React.FC<FormInputProps> = ({
       <Input
         name={name}
         type={type}
-        placeholder={placeholder}
-        onBlur={handleBlur}
-        onChange={handleChange}
+        placeholder={adjustedPlaceholder}
+        onBlur={onBlur}
+        onChange={onChange}
         value={value}
         className={isError ? 'border-red-500' : ''}
       />
