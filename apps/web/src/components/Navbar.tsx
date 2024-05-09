@@ -168,8 +168,6 @@ export const Navbar: React.FC = () => {
       </div>
 
       <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
-        <h1>IDR</h1>
-        <h1>Create</h1>
         <h1>Support</h1>
         <Button className="bg-slate-600">Login</Button>
       </div>
