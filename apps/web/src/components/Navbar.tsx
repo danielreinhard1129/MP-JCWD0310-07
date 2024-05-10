@@ -191,6 +191,11 @@ export const Navbar: React.FC = () => {
           <Button onClick={() => router.push('/login')} className="bg-slate-600">Login</Button>
         </div>
       )}
+
+      <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
+        <h1>Support</h1>
+        <Button className="bg-slate-600">Login</Button>
+      </div>
       <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
         <User />
       </ButtonCircle>
