@@ -8,23 +8,21 @@ interface Register {
   email: string;
   password: string;
   reff?: string;
-  referralCode?: string;
+  referralCode: string;
 }
 
-export const register = async (body: Register) => {
+export const referralCodeService = async (body: Register) => {
   try {
-    const { fullName, email, password, reff } = body;
+    const { fullName, email, password, reff, referralCode } = body;
 
     const { code } = generateRefferalCode();
-
-    const hashedPassword = await hashPassword(password);
 
     const userNew = await prisma.$transaction(async (prisma) => {
       const user = await prisma.user.create({
         data: {
           fullName,
           email,
-          password: hashedPassword,
+          password,
           referralCode: code,
         },
       });
