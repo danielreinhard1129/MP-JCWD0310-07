@@ -21,12 +21,33 @@ model Sample {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  fullName  String
-  email     String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int      @id @default(autoincrement())
+  fullName     String
+  email        String
+  password     String
+  referralCode String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  points       Point[]
 
   @@map("users")
+}
+
+enum Role {
+  customer
+  organizer
+
+  @@map("roles")
+}
+
+model Point {
+  id        Int       @id @default(autoincrement())
+  total     Int
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  expiredAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("points")
 }

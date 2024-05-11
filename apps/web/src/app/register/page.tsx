@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFormik } from 'formik';
@@ -6,6 +6,7 @@ import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
 import useRegister from '@/hooks/api/auth/useRegister';
 import { validationSchema } from './validationSchema';
+import { Mail } from 'lucide-react';
 
 const Register = () => {
   const { register } = useRegister();
@@ -14,7 +15,7 @@ const Register = () => {
       fullName: '',
       email: '',
       password: '',
-      refferal_code: '',
+      reff: '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -26,7 +27,7 @@ const Register = () => {
       <div className="mt-40 flex justify-center">
         <Card>
           <CardHeader>
-            <CardTitle className="text-center text-3xl text-primary">
+            <CardTitle className="text-primary text-center text-3xl">
               Create Your Account
             </CardTitle>
           </CardHeader>
@@ -43,8 +44,8 @@ const Register = () => {
                   isError={
                     !!formik.touched.fullName && !!formik.errors.fullName
                   }
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
                 <FormInput
                   name="email"
@@ -54,8 +55,8 @@ const Register = () => {
                   value={formik.values.email}
                   error={formik.errors.email}
                   isError={!!formik.touched.email && !!formik.errors.email}
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
                 <FormInput
                   name="password"
@@ -67,21 +68,21 @@ const Register = () => {
                   isError={
                     !!formik.touched.password && !!formik.errors.password
                   }
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
                 <FormInput
-                  name="refferal_code"
-                  type="refferal_code"
-                  label="Refferal Code"
+                  name="reff"
+                  type="text"
+                  label="Referral Code"
                   placeholder="Refferal Code"
-                  value={formik.values.refferal_code}
-                  error={formik.errors.refferal_code}
+                  value={formik.values.reff}
+                  error={formik.errors.reff}
                   isError={
-                    !!formik.touched.refferal_code && !!formik.errors.refferal_code
+                    !!formik.touched.reff && !!formik.errors.reff
                   }
-                  handleChange={formik.handleChange}
-                  handleBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
               </div>
               <Button className="mt-6 w-full">Register</Button>
@@ -91,7 +92,6 @@ const Register = () => {
       </div>
       <hr className="my-24 w-full border-gray-300" />
     </main>
-    
   );
 };
 
