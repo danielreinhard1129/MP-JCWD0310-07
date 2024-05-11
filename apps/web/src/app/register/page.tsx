@@ -6,6 +6,7 @@ import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
 import useRegister from '@/hooks/api/auth/useRegister';
 import { validationSchema } from './validationSchema';
+import { Mail } from 'lucide-react';
 
 const Register = () => {
   const { register } = useRegister();
@@ -14,7 +15,7 @@ const Register = () => {
       fullName: '',
       email: '',
       password: '',
-      refferal_code: '',
+      reff: '',
     },
     validationSchema,
     onSubmit: (values) => {
@@ -71,14 +72,14 @@ const Register = () => {
                   handleBlur={formik.handleBlur}
                 />
                 <FormInput
-                  name="refferal_code"
-                  type="refferal_code"
-                  label="Refferal Code"
+                  name="reff"
+                  type="text"
+                  label="Referral Code"
                   placeholder="Refferal Code"
-                  value={formik.values.refferal_code}
-                  error={formik.errors.refferal_code}
+                  value={formik.values.reff}
+                  error={formik.errors.reff}
                   isError={
-                    !!formik.touched.refferal_code && !!formik.errors.refferal_code
+                    !!formik.touched.reff && !!formik.errors.reff
                   }
                   handleChange={formik.handleChange}
                   handleBlur={formik.handleBlur}
