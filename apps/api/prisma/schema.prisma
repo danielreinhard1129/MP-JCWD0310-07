@@ -35,7 +35,7 @@ model User {
 
 enum Role {
   customer
-  organizer 
+  organizer
 
   @@map("roles")
 }

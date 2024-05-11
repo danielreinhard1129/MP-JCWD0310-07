@@ -42,8 +42,8 @@ const Login = () => {
                   value={values.email}
                   error={values.email}
                   isError={!!touched.email && !!errors.email}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
                 <FormInput
                   name="password"
@@ -53,8 +53,8 @@ const Login = () => {
                   value={values.password}
                   error={values.password}
                   isError={!!touched.password && !!errors.password}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
                 <div className="flex justify-between">
                   <p

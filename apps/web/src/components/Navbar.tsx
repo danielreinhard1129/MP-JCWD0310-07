@@ -17,6 +17,9 @@ import { ButtonCircle } from "./ui/button-circle";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logoutAction } from "@/redux/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 export const Navbar: React.FC = () => {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
@@ -26,6 +29,15 @@ export const Navbar: React.FC = () => {
   );
   const [isHoveringSubtitle, setIsHoveringSubtitle] = useState<boolean>(false);
 
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const { id } = useAppSelector((state) => state.user);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(logoutAction());
+  };
   const router = useRouter();
 
   const dispatch = useAppDispatch();
@@ -72,7 +84,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav
-      className="relative flex items-center justify-between bg-black py-7 text-white"
+      className="flex items-center justify-between bg-black py-7 text-white"
       style={{ height: "80px" }}
     >
       <div className="ml-4 flex justify-start gap-4 md:ml-10">
@@ -192,10 +204,7 @@ export const Navbar: React.FC = () => {
         </div>
       )}
 
-      <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
-        <h1>Support</h1>
-        <Button className="bg-slate-600">Login</Button>
-      </div>
+    
       <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
         <User />
       </ButtonCircle>

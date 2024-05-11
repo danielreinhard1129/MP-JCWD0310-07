@@ -39,12 +39,12 @@ const Hero = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="bottom-0 mt-20 flex flex-1 flex-col items-center md:bottom-24 md:mt-0 relative">
+      <div className="bottom-0 mt-11 flex flex-1 flex-col items-center md:bottom-14 md:mt-0 relative">
         <div className="bold-40 text-center xl:max-w-[600px] mb-10 font-sans">
           <h1 className="text-white">Unlock Your Next Experience</h1>
         </div>
-        <p className="regular-24 bold-20 mt-4 text-center text-white xl:max-w-[500px] relative bottom-8 font-sans">
-          Your gateway to unforgettable events is <span className="text-teal-300">just a click away! </span>
+        <p className="regular-24 bold-20 mt-6 text-center text-white xl:max-w-[550px] relative bottom-8 font-sans">
+          Your gateway to unforgettable events is <span className="text-teal-400"> just a click away!  </span>
         </p>
         <div
           className="relative mt-4 flex items-center p-4 px-4"
