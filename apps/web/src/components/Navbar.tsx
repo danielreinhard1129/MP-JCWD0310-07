@@ -17,6 +17,9 @@ import { ButtonCircle } from "./ui/button-circle";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logoutAction } from "@/redux/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 export const Navbar: React.FC = () => {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
@@ -26,6 +29,15 @@ export const Navbar: React.FC = () => {
   );
   const [isHoveringSubtitle, setIsHoveringSubtitle] = useState<boolean>(false);
 
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const { id } = useAppSelector((state) => state.user);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(logoutAction());
+  };
   const router = useRouter();
 
   const dispatch = useAppDispatch();

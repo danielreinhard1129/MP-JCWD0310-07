@@ -5,3 +5,11 @@ export interface User {
   password: string;
   reff?: string;
 }
+
+    id: number;
+    fullName: string;
+    email: string;
+    password: string;
+    reff?: string;
+  }
+  
