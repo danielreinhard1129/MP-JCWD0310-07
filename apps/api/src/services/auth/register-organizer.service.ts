@@ -12,7 +12,7 @@ interface RegisterOrganizerProps {
   }
 
 
-export const registerOrganizereService = async (
+export const registerOrganizerService = async (
   body: Pick<RegisterOrganizerProps, 'email' | 'fullName' | 'password' | 'referralCode' | 'role'>,
 ) => {
   try {

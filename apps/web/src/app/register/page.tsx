@@ -89,10 +89,9 @@ const Register = () => {
               </div>
               <div className="flex justify-between mt-2">
                   <p
-                    onClick={() => router.push("/register-organizer")}
-                    className="cursor-pointer text-xs"
+                    className="text-xs"
                   >
-                    Want to create your event? <span className='font-bold'>Register as organizer</span>
+                    Want to create your event? <span className='font-bold cursor-pointer' onClick={() => router.push("/register-organizer")}>Register as organizer</span>
                   </p>
                 </div>
               <Button type='submit' className="mt-6 w-full">Register</Button>

@@ -18,10 +18,16 @@ export const register = async (body: Register) => {
 
     const { code } = generateRefferalCode();
 
+    const today = new Date();
+    const updateDate = new Date(
+      today.setMonth(today.setMonth(today.getMonth() + 3))
+    )
+
     const hashedPassword = await hashPassword(password);
     const existingUser = await prisma.user.findFirst({
       where: { email: email },
     });
+
     if (existingUser) {
       throw new Error("Email already exist");
     }
@@ -33,7 +39,7 @@ export const register = async (body: Register) => {
           email,
           password: hashedPassword,
           referralCode: code,
-          role: 'client'
+          role: "client",
         },
       });
 
