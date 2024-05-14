@@ -4,12 +4,11 @@ import { axiosInstance } from '@/lib/axios';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
-// interface IForgotPassArgs extends Pick<User, 'email'> {}
 interface ResetPasswordResponse {
   message: string;
 }
+
 const useResetPassword = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +26,12 @@ const useResetPassword = () => {
         },
       );
 
-      toast(data.message);
-
+      alert(data.message);
       router.replace('/');
     } catch (error) {
-      console.log(error);
       if (error instanceof AxiosError) {
-        toast.error(error?.response?.data);
+        // FIXME: chane alert to toast
+        alert(error?.response?.data?.message);
       }
     } finally {
       setIsLoading(false);

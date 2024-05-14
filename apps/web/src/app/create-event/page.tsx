@@ -14,6 +14,7 @@ import { ArrowBigDownDash } from "lucide-react";
 import { useState } from "react";
 import { EVENT_CATEGORIES } from "../../../constant";
 import FormTextArea from "@/components/FormTextArea";
+import AuthGuardOrganizer from "@/hoc/AuthGuardOrganizer"
 
 const CreateEvent = () => {
   const [isPaidEvent, setIsPaidEvent] = useState(false);
@@ -200,4 +201,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default AuthGuardOrganizer(CreateEvent);

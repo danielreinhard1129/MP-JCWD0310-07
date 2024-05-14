@@ -40,8 +40,8 @@ const ForgotPassword = () => {
                   value={values.email}
                   error={values.email}
                   isError={!!touched.email && !!errors.email}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </div>
               <Button

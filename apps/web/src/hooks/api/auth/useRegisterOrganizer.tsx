@@ -5,12 +5,12 @@ import { User } from '@/types/user.type';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
-interface RegisterArgs extends Omit<User, 'id' | 'points' | 'role' | 'referralCode'> {}
-const useRegister = () => {
+interface RegisterArgsOrganizer extends Omit<User, 'id' | 'points' | 'reff' | 'referralCode'> {role: string}
+const useRegisterOrganizer = () => {
   const router = useRouter();
-  const register = async (payload: RegisterArgs) => {
+  const registerOrganizer = async (payload: RegisterArgsOrganizer) => {
     try {
-      await axiosInstance.post('/auth/register', payload);
+      await axiosInstance.post('/auth/register-organizer', payload);
       router.push('/login');
     } catch (error) {
       //   console.log(error);
@@ -19,7 +19,7 @@ const useRegister = () => {
       }
     }
   };
-  return { register };
+  return { registerOrganizer };
 };
 
-export default useRegister;
+export default useRegisterOrganizer;

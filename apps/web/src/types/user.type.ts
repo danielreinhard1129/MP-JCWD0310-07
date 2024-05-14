@@ -4,6 +4,12 @@ export interface User {
     email: string;
     password: string
     reff?: string
+    referralCode: string
+    role: string
+    points: {
+      total :number;
+    }[]
+    
     // referral_code?: string;
   }
   

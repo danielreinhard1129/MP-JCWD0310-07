@@ -18,7 +18,7 @@ const Login = () => {
         password: "",
       },
       validationSchema,
-      onSubmit: (values) => {
+      onSubmit: async (values) => {
         login(values);
       },
     });
@@ -42,8 +42,8 @@ const Login = () => {
                   value={values.email}
                   error={values.email}
                   isError={!!touched.email && !!errors.email}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
                 <FormInput
                   name="password"
@@ -53,15 +53,15 @@ const Login = () => {
                   value={values.password}
                   error={values.password}
                   isError={!!touched.password && !!errors.password}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
                 <div className="flex justify-between">
                   <p
                     onClick={() => router.push("/register")}
                     className="cursor-pointer text-xs"
                   >
-                    Dont have account? Register first
+                    Dont have account? <span className='font-bold'>Register first</span>
                   </p>
                   <p
                     className="cursor-pointer text-xs"

@@ -51,8 +51,8 @@ const ResetPassword = () => {
                   value={values.password}
                   error={values.password}
                   isError={!!touched.password && !!errors.password}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
                 <FormInput
                   name="confirmPassword"
@@ -62,8 +62,8 @@ const ResetPassword = () => {
                   value={values.confirmPaaword}
                   error={values.confirmPaaword}
                   isError={!!touched.confirmPaaword && !!errors.confirmPaaword}
-                  handleChange={handleChange}
-                  handleBlur={handleBlur}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
               </div>
               {/* <Button className="mt-6 w-full">Register</Button> */}
