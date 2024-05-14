@@ -9,19 +9,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, User } from "lucide-react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logoutAction } from "@/redux/slices/userSlice";
+import { LogOut, Menu, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NAV_EVENT_LINKS } from "../../constant";
-import { ButtonCircle } from "./ui/button-circle";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation"
+import { ButtonCircle } from "./ui/button-circle";
 
 export const Navbar: React.FC = () => {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
@@ -43,15 +40,7 @@ export const Navbar: React.FC = () => {
     dispatch(logoutAction());
   };
 
-  const router = useRouter();
-
-  const dispatch = useAppDispatch();
-  const { id } = useAppSelector((state) => state.user);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    dispatch(logoutAction());
-  };
+  
   // Function to handle mouse enter event on a label
   const handleLabelMouseEnter = (label: string) => {
     setSelectedLabel(label);
@@ -208,24 +197,22 @@ export const Navbar: React.FC = () => {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuLabel>{email}</DropdownMenuLabel>
+                {role !== "organizer" && (
               <DropdownMenuLabel className="font-extrabold text-blue-400">
-                {referralCode}
+                Reff: {referralCode}
               </DropdownMenuLabel>
+                )}
               <DropdownMenuLabel className="font-extrabold text-blue-400">
-                {role}
+                Role: {role}
               </DropdownMenuLabel>
-              {role !== "organizer" && (
+              {role !== "organizer" && points?.[0] && (
                 <DropdownMenuLabel className="font-extrabold text-blue-400">
-                  {points[0].total}
+                  Point: {points[0].total}
                 </DropdownMenuLabel>
               )}
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Home</DropdownMenuItem>
-              {role == "organizer" && (
-                <DropdownMenuItem onClick={() => router.push("/create-event")} className="cursor-pointer">Create Event</DropdownMenuItem>
-              )}
-              <DropdownMenuItem onClick={logout} className="cursor-pointer">
-                Logout
+              <DropdownMenuItem onClick={logout} className="cursor-pointer gap-1">
+              <LogOut size={20} strokeWidth={1.5} />Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -241,7 +228,7 @@ export const Navbar: React.FC = () => {
           </Button>
         </div>
       )}
-      
+
       <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
         <User />
       </ButtonCircle>

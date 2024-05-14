@@ -1,7 +1,7 @@
 'use client';
 
 import { axiosInstance } from '@/lib/axios';
-import { User } from '@/types/user.type';
+import { User } from '@/types/user.types';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 

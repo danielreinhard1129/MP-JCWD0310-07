@@ -1,13 +1,12 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFormik } from 'formik';
 import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
-import { validationSchema } from './validationSchema';
-import useLogin from '@/hooks/api/auth/useLogin';
-import { notFound, useSearchParams } from 'next/navigation';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import useResetPassword from '@/hooks/api/auth/useResetPassword';
+import { useFormik } from 'formik';
+import { notFound, useSearchParams } from 'next/navigation';
+import { validationSchema } from './validationSchema';
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
@@ -59,13 +58,9 @@ const ResetPassword = () => {
                   type="password"
                   label="Confirm Password"
                   placeholder="Confirm Password"
-                  value={values.confirmPaaword}
-                  error={values.confirmPaaword}
-                  isError={!!touched.confirmPaaword && !!errors.confirmPaaword}
                   value={values.confirmPassword}
                   error={values.confirmPassword}
                   isError={!!touched.confirmPassword && !!errors.confirmPassword}
-
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />

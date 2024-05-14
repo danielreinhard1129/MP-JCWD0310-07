@@ -57,11 +57,8 @@ const Login = () => {
                   onBlur={handleBlur}
                 />
                 <div className="flex justify-between">
-                  <p
-                    onClick={() => router.push("/register")}
-                    className="cursor-pointer text-xs"
-                  >
-                    Dont have account? <span className='font-bold'>Register first</span>
+                  <p className="text-xs">
+                    Don&apos;t have an account? <span className='font-bold cursor-pointer' onClick={() => router.push("/register")}>Register first</span>
                   </p>
                   <p
                     className="cursor-pointer text-xs"
@@ -71,7 +68,7 @@ const Login = () => {
                   </p>
                 </div>
               </div>
-              <Button className="mt-6 w-full">Login</Button>
+              <Button className="mt-6 w-full">Sign in</Button>
             </form>
           </CardContent>
         </Card>
