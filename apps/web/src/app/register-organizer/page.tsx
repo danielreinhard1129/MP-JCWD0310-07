@@ -1,26 +1,28 @@
+
 "use client";
 
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useFormik } from 'formik';
 import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import useRegister from '@/hooks/api/auth/useRegister';
-import { useFormik } from 'formik';
-import { useRouter } from 'next/navigation';
 import { validationSchema } from './validationSchema';
+import { Mail } from 'lucide-react';
+import useRegisterOrganizer from '@/hooks/api/auth/useRegisterOrganizer';
 
-const Register = () => {
-  const router = useRouter();
-  const { register } = useRegister();
+const RegisterOrganizer = () => {
+  const { registerOrganizer } = useRegisterOrganizer();
   const formik = useFormik({
     initialValues: {
       fullName: '',
       email: '',
       password: '',
-      reff: '',
+      referralCode: '',
+      role: 'organizer',
     },
     validationSchema,
     onSubmit: async (values) => {
-      register(values);
+      registerOrganizer(values);
     },
   });
 
@@ -29,8 +31,8 @@ const Register = () => {
       <div className="mt-40 flex justify-center">
         <Card>
           <CardHeader>
-            <CardTitle className="text-primary text-center text-3xl">
-              Create Your Account
+            <CardTitle className="text-primary text-center text-2xl">
+              Create Your Organizer Account
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -73,29 +75,8 @@ const Register = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <FormInput
-                  name="reff"
-                  type="text"
-                  label="Referral Code"
-                  placeholder="Refferal Code"
-                  value={formik.values.reff}
-                  error={formik.errors.reff}
-                  isError={
-                    !!formik.touched.reff && !!formik.errors.reff
-                  }
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
               </div>
-              <div className="flex justify-between mt-2">
-                  <p
-                    onClick={() => router.push("/register-organizer")}
-                    className="cursor-pointer text-xs"
-                  >
-                    Want to create your event? <span className='font-bold'>Register as organizer</span>
-                  </p>
-                </div>
-              <Button type='submit' className="mt-6 w-full">Register</Button>
+              <Button type='submit' className="mt-6 w-full">Register as organizer</Button>
             </form>
           </CardContent>
         </Card>
@@ -105,4 +86,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterOrganizer;

@@ -59,9 +59,13 @@ const ResetPassword = () => {
                   type="password"
                   label="Confirm Password"
                   placeholder="Confirm Password"
+                  value={values.confirmPaaword}
+                  error={values.confirmPaaword}
+                  isError={!!touched.confirmPaaword && !!errors.confirmPaaword}
                   value={values.confirmPassword}
                   error={values.confirmPassword}
                   isError={!!touched.confirmPassword && !!errors.confirmPassword}
+
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />

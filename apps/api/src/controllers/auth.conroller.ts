@@ -3,6 +3,7 @@ import { getUserPointService } from "@/services/auth/getuserpoint.service";
 import { keepLoginService } from "@/services/auth/keep-login.service";
 import { loginService } from "@/services/auth/login.service";
 import { referralCodeService } from "@/services/auth/referral-code.service";
+import { registerOrganizereService } from "@/services/auth/register-organizer.service";
 import { register } from "@/services/auth/register.service";
 import { resetPasswordService } from "@/services/auth/reset-password.service";
 import { NextFunction, Request, Response } from "express";
@@ -86,6 +87,15 @@ export class AuthController {
       const result = await getUserPointService();
 
       return res.status(200).send(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async registerOrganizerController(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await registerOrganizereService(req.body);
+      res.status(200).send(result);
     } catch (error) {
       next(error);
     }

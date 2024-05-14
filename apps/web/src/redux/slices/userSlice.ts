@@ -1,11 +1,15 @@
 import { User } from '@/types/user.type';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { number } from 'yup';
 
 const initialState: User = {
   id: 0,
   fullName: '',
   email: '',
   password: '',
+  role: '',
+  referralCode: '',
+  points: [{total : 0}],
 };
 
 export const userSlice = createSlice({
@@ -16,6 +20,10 @@ export const userSlice = createSlice({
       state.id = action.payload.id;
       state.fullName = action.payload.fullName;
       state.email = action.payload.email;
+      state.referralCode = action.payload.referralCode;
+      state.role = action.payload.role;
+      state.points = action.payload.points;
+
     },
     logoutAction: (state) => {
       state.id = 0;

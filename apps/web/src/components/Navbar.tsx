@@ -5,6 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -17,9 +18,10 @@ import { ButtonCircle } from "./ui/button-circle";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
 
 export const Navbar: React.FC = () => {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
@@ -32,12 +34,15 @@ export const Navbar: React.FC = () => {
   const router = useRouter();
 
   const dispatch = useAppDispatch();
-  const { id } = useAppSelector((state) => state.user);
+  const { id, email, referralCode, role, points } = useAppSelector(
+    (state) => state.user,
+  );
 
   const logout = () => {
     localStorage.removeItem("token");
     dispatch(logoutAction());
   };
+
   const router = useRouter();
 
   const dispatch = useAppDispatch();
@@ -193,18 +198,50 @@ export const Navbar: React.FC = () => {
       {Boolean(id) ? (
         <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
           <h1>Support</h1>
-          <Button onClick={logout} className="bg-slate-600">
-            Logout
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{email}</DropdownMenuLabel>
+              <DropdownMenuLabel className="font-extrabold text-blue-400">
+                {referralCode}
+              </DropdownMenuLabel>
+              <DropdownMenuLabel className="font-extrabold text-blue-400">
+                {role}
+              </DropdownMenuLabel>
+              {role !== "organizer" && (
+                <DropdownMenuLabel className="font-extrabold text-blue-400">
+                  {points[0].total}
+                </DropdownMenuLabel>
+              )}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Home</DropdownMenuItem>
+              {role == "organizer" && (
+                <DropdownMenuItem onClick={() => router.push("/create-event")} className="cursor-pointer">Create Event</DropdownMenuItem>
+              )}
+              <DropdownMenuItem onClick={logout} className="cursor-pointer">
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       ) : (
         <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
           <h1>Support</h1>
-          <Button onClick={() => router.push('/login')} className="bg-slate-600">Login</Button>
+          <Button
+            onClick={() => router.push("/login")}
+            className="bg-slate-600"
+          >
+            Login
+          </Button>
         </div>
       )}
-
-    
+      
       <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
         <User />
       </ButtonCircle>

@@ -36,6 +36,8 @@ export class AuthRouter {
       '/user-point',
       this.authController.getPointUserController,
     );
+
+    this.router.post("/register-organizer", this.authController.registerOrganizerController);
   }
 
   getRouter(): Router {

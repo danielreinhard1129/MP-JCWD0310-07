@@ -18,7 +18,7 @@ const Login = () => {
         password: "",
       },
       validationSchema,
-      onSubmit: (values) => {
+      onSubmit: async (values) => {
         login(values);
       },
     });
@@ -61,7 +61,7 @@ const Login = () => {
                     onClick={() => router.push("/register")}
                     className="cursor-pointer text-xs"
                   >
-                    Dont have account? Register first
+                    Dont have account? <span className='font-bold'>Register first</span>
                   </p>
                   <p
                     className="cursor-pointer text-xs"
