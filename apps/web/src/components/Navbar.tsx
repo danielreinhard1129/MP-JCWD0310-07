@@ -19,6 +19,9 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logoutAction } from "@/redux/slices/userSlice";
+import { useRouter } from "next/navigation"
 
 export const Navbar: React.FC = () => {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
@@ -40,6 +43,15 @@ export const Navbar: React.FC = () => {
     dispatch(logoutAction());
   };
 
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+  const { id } = useAppSelector((state) => state.user);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(logoutAction());
+  };
   // Function to handle mouse enter event on a label
   const handleLabelMouseEnter = (label: string) => {
     setSelectedLabel(label);
@@ -229,7 +241,7 @@ export const Navbar: React.FC = () => {
           </Button>
         </div>
       )}
-
+      
       <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
         <User />
       </ButtonCircle>

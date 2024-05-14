@@ -35,6 +35,13 @@ model User {
   @@map("users")
 }
 
+enum Role {
+  customer
+  organizer
+
+  @@map("roles")
+}
+
 model Point {
   id        Int       @id @default(autoincrement())
   total     Int

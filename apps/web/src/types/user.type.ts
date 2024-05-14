@@ -9,7 +9,6 @@ export interface User {
     points: {
       total :number;
     }[]
-    
     // referral_code?: string;
   }
   

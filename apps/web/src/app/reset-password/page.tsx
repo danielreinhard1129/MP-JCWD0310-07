@@ -23,7 +23,7 @@ const ResetPassword = () => {
     useFormik({
       initialValues: {
         password: '',
-        confirmPaaword: '',
+        confirmPassword: '',
       },
       validationSchema,
       onSubmit: ({ password }) => {
@@ -62,11 +62,15 @@ const ResetPassword = () => {
                   value={values.confirmPaaword}
                   error={values.confirmPaaword}
                   isError={!!touched.confirmPaaword && !!errors.confirmPaaword}
+                  value={values.confirmPassword}
+                  error={values.confirmPassword}
+                  isError={!!touched.confirmPassword && !!errors.confirmPassword}
+
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
               </div>
-              {/* <Button className="mt-6 w-full">Register</Button> */}
+              <Button type='submit' className="mt-6 w-full">Submit</Button>
             </form>
           </CardContent>
         </Card>
