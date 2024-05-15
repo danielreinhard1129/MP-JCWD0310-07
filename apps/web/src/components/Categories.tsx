@@ -8,12 +8,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import useGetEvents from "@/hooks/api/admin/useGetEvents";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { EVENT_CATEGORIES } from "../../constant";
 import { Badge } from "./ui/badge";
 
 const CategoriesCards: React.FC = () => {
+  const router = useRouter();
+
   const itemsPerSlide = 4;
   const [currentSlide, setCurrentSlide] = useState(1);
 
@@ -29,6 +33,10 @@ const CategoriesCards: React.FC = () => {
         prevSlide === 1 ? totalSlides : prevSlide - 1,
       );
     }
+  };
+
+  const handleCategoryClick = (category: string) => {
+    router.push(`/categories/${category}`);
   };
 
   useEffect(() => {
@@ -79,24 +87,28 @@ const CategoriesCards: React.FC = () => {
                 // Check if current index is divisible evenly by itemsPerSlide
                 index % itemsPerSlide === 0 && (
                   <CarouselItem key={category.title + index} className="py-12">
-                      <div className="grid md:gap-4 gap-4 grid-cols-2 md:grid-cols-4">
-                        {/* Map the next four categories */}
-                        {EVENT_CATEGORIES.slice(index, index + itemsPerSlide).map(
-                          (category, subIndex) => (
-                            <Card key={category.title + index + subIndex} className="my-11 md:my-0">
-                              <div className="relative md:h-32 h-6">
-                                <div className="h-full w-full cursor-pointer">
-                                  <Image
-                                    src={category.links}
-                                    alt={category.title}
-                                    layout="responsive"
-                                    objectFit="cover"
-                                    width={90}
-                                    height={80}
-                                  className="rounded-md transform transition-transform duration-300 hover:scale-105"
+                    <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-4">
+                      {/* Map the next four categories */}
+                      {EVENT_CATEGORIES.slice(index, index + itemsPerSlide).map(
+                        (category, subIndex) => (
+                          <Card
+                            key={category.title + index + subIndex}
+                            className="my-11 md:my-0"
+                            onClick={() => handleCategoryClick(category.title)}
+                          >
+                            <div className="relative h-6 md:h-32">
+                              <div className="h-full w-full cursor-pointer">
+                                <Image
+                                  src={category.links}
+                                  alt={category.title}
+                                  layout="responsive"
+                                  objectFit="cover"
+                                  width={90}
+                                  height={80}
+                                  className="transform rounded-md transition-transform duration-300 hover:scale-105"
                                 />
                               </div>
-                              <div className="absolute inset-x-0 md:top-28 top-16 flex justify-center font-bold text-white">
+                              <div className="absolute inset-x-0 top-16 flex justify-center font-bold text-white md:top-28">
                                 <CardHeader>
                                   <CardTitle className="flex cursor-pointer justify-center rounded-lg bg-black px-4 text-xs text-white md:text-xl">
                                     {category.title}

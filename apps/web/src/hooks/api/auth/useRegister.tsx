@@ -5,7 +5,7 @@ import { User } from '@/types/user.type';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
-interface RegisterArgs extends Omit<User, 'id'> {}
+interface RegisterArgs extends Omit<User, 'id' | 'points' | 'role' | 'referralCode'> {}
 const useRegister = () => {
   const router = useRouter();
   const register = async (payload: RegisterArgs) => {

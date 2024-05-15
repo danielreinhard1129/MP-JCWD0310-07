@@ -6,5 +6,5 @@ export const validationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Password is required")
     .min(8, "Your password is too short"),
-  reff: Yup.string(),
+    reff: Yup.string(),
 });

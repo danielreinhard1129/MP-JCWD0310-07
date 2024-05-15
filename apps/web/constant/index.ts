@@ -188,7 +188,7 @@ export const NAV_EVENT_LINKS: NAVLink[] = [
       { title: "Philadelphia" },
       { title: "San Antonio" },
       { title: "San Diego" },
-      { title: "Dallas" }
+      { title: "Dallas" },
     ],
   },
 ];
@@ -196,13 +196,26 @@ export const NAV_EVENT_LINKS: NAVLink[] = [
 //EVENT_CATEGORIES
 export const EVENT_CATEGORIES = [
   { href: "/", title: "Concert", links: "/concert.jpg" },
-  { href: "/", title: "Basket Ball", links: "/basketball.jpg" },
+  { href: "/", title: "BasketBall", links: "/basketball.jpg" },
   { href: "/", title: "Comedy", links: "/comedy-1.jpg" },
   { href: "/", title: "Football", links: "/football.jpg" },
   { href: "/", title: "Fighting", links: "/fighting.jpg" },
   { href: "/", title: "Futsal", links: "/futsal-1.jpg" },
   { href: "/", title: "Running", links: "/running.jpg" },
   { href: "/", title: "Billiard", links: "/billiard.jpg" },
+];
+
+//How render category if title have space?
+
+export const CATEGORY_BACKGROUND = [
+  { title: "Concert", url: "/category-img/concert.jpg" },
+  { title: "BasketBall", url: "/category-img/basketball.jpg" },
+  { title: "Comedy", url: "/category-img/comedy.jpg" },
+  { title: "Football", url: "/category-img/football.jpg" },
+  { title: "Fighting", url: "/category-img/fighting.jpg" },
+  { title: "Futsal", url: "/category-img/futsal.jpg" },
+  { title: "Running", url: "/category-img/running.jpg" },
+  { title: "Billiard", url: "/category-img/billiard.jpg" },
 ];
 
 //TOP_CONCERTS

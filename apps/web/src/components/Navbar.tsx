@@ -5,21 +5,20 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, User } from "lucide-react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logoutAction } from "@/redux/slices/userSlice";
+import { LogOut, Menu, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NAV_EVENT_LINKS } from "../../constant";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { ButtonCircle } from "./ui/button-circle";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation";
 
 export const Navbar: React.FC = () => {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
@@ -32,21 +31,16 @@ export const Navbar: React.FC = () => {
   const router = useRouter();
 
   const dispatch = useAppDispatch();
-  const { id } = useAppSelector((state) => state.user);
+  const { id, email, referralCode, role, points } = useAppSelector(
+    (state) => state.user,
+  );
 
   const logout = () => {
     localStorage.removeItem("token");
     dispatch(logoutAction());
   };
-  const router = useRouter();
 
-  const dispatch = useAppDispatch();
-  const { id } = useAppSelector((state) => state.user);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    dispatch(logoutAction());
-  };
+  
   // Function to handle mouse enter event on a label
   const handleLabelMouseEnter = (label: string) => {
     setSelectedLabel(label);
@@ -193,18 +187,48 @@ export const Navbar: React.FC = () => {
       {Boolean(id) ? (
         <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
           <h1>Support</h1>
-          <Button onClick={logout} className="bg-slate-600">
-            Logout
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{email}</DropdownMenuLabel>
+                {role !== "organizer" && (
+              <DropdownMenuLabel className="font-extrabold text-blue-400">
+                Reff: {referralCode}
+              </DropdownMenuLabel>
+                )}
+              <DropdownMenuLabel className="font-extrabold text-blue-400">
+                Role: {role}
+              </DropdownMenuLabel>
+              {role !== "organizer" && points?.[0] && (
+                <DropdownMenuLabel className="font-extrabold text-blue-400">
+                  Point: {points[0].total}
+                </DropdownMenuLabel>
+              )}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logout} className="cursor-pointer gap-1">
+              <LogOut size={20} strokeWidth={1.5} />Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       ) : (
         <div className="mr-10 hidden flex-row items-center gap-6 md:flex">
           <h1>Support</h1>
-          <Button onClick={() => router.push('/login')} className="bg-slate-600">Login</Button>
+          <Button
+            onClick={() => router.push("/login")}
+            className="bg-slate-600"
+          >
+            Login
+          </Button>
         </div>
       )}
 
-    
       <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
         <User />
       </ButtonCircle>

@@ -1,14 +1,15 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFormik } from 'formik';
 import FormInput from '@/components/FormInput';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import useRegister from '@/hooks/api/auth/useRegister';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
 import { validationSchema } from './validationSchema';
-import { Mail } from 'lucide-react';
 
 const Register = () => {
+  const router = useRouter();
   const { register } = useRegister();
   const formik = useFormik({
     initialValues: {
@@ -18,10 +19,11 @@ const Register = () => {
       reff: '',
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       register(values);
     },
   });
+
   return (
     <main className="container mx-auto h-[90vh] px-4">
       <div className="mt-40 flex justify-center">
@@ -85,7 +87,14 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                 />
               </div>
-              <Button className="mt-6 w-full">Register</Button>
+              <div className="flex justify-between mt-2">
+                  <p
+                    className="text-xs"
+                  >
+                    Want to create your event? <span className='font-bold cursor-pointer' onClick={() => router.push("/register-organizer")}>Register as organizer</span>
+                  </p>
+                </div>
+              <Button type='submit' className="mt-6 w-full">Register</Button>
             </form>
           </CardContent>
         </Card>

@@ -20,21 +20,21 @@ export class AuthRouter {
       this.authController.forgotPasswordController,
     );
     this.router.patch(
-      "/reset-password", verifyToken, 
+      "/reset-password",
+      verifyToken,
       this.authController.resetPasswordController,
     );
     this.router.get(
-      '/keep-login',
+      "/keep-login",
       verifyToken,
       this.authController.keepLoginController,
     );
-    // this.router.post(
-    //   '/referral-code',
-    //   this.authController.referralCodeController,
-    // );
-    this.router.get(
-      '/user-point',
-      this.authController.getPointUserController,
+
+    this.router.get("/user-point", this.authController.getPointUserController);
+
+    this.router.post(
+      "/register-organizer",
+      this.authController.registerOrganizerController,
     );
   }
 

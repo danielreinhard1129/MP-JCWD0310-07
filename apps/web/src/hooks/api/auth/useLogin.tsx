@@ -11,6 +11,11 @@ interface LoginArgs extends Omit<User, "id" | "fullName" | "refferal_code" | "re
   password: string;
 }
 
+interface Login {
+  email: string;
+  password: string
+}
+
 interface LoginResponse {
   message: string;
   data: User;
@@ -20,13 +25,14 @@ interface LoginResponse {
 const useLogin = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const login = async (payload: LoginArgs) => {
+  const login = async (payload: Login) => {
     try {
       const { data } = await axiosInstance.post<LoginResponse>(
         "/auth/login",
         payload,
       );
-
+      console.log(data);
+      
       dispatch(loginAction(data.data));
       localStorage.setItem("token", data.token);
       router.replace("/");

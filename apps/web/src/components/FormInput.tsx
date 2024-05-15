@@ -8,7 +8,7 @@ interface FormInputProps {
   name: string;
   label: string;
   type: string;
-  value: string;
+  value: string | number | Date;
   placeholder: string;
   isError: boolean;
   error: string | undefined;
@@ -27,7 +27,8 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   onBlur,
 }) => {
-
+  const adjustedValue = value instanceof Date ? value.toISOString().split('T')[0] : value;
+  
   const adjustedPlaceholder = type === 'date' ? 'YYYY-MM-DD' : type === 'time' ? 'HH:MM' : placeholder;
   return (
     <div className="flex flex-col space-y-1.5">
@@ -40,7 +41,7 @@ const FormInput: React.FC<FormInputProps> = ({
         placeholder={adjustedPlaceholder}
         onBlur={onBlur}
         onChange={onChange}
-        value={value}
+        value={adjustedValue}
         className={isError ? 'border-red-500' : ''}
       />
       {isError ? <div className="text-xs text-red-500">{error}</div> : null}

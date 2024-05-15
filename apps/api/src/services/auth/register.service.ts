@@ -9,15 +9,28 @@ interface Register {
   password: string;
   reff?: string;
   referralCode?: string;
+  role: string;
 }
 
 export const register = async (body: Register) => {
   try {
-    const { fullName, email, password, reff } = body;
+    const { fullName, email, password, reff, role } = body;
 
     const { code } = generateRefferalCode();
 
+    const today = new Date();
+    const updateDate = new Date(
+      today.setMonth(today.setMonth(today.getMonth() + 3))
+    )
+
     const hashedPassword = await hashPassword(password);
+    const existingUser = await prisma.user.findFirst({
+      where: { email: email },
+    });
+
+    if (existingUser) {
+      throw new Error("Email already exist");
+    }
 
     const userNew = await prisma.$transaction(async (prisma) => {
       const user = await prisma.user.create({
@@ -26,6 +39,7 @@ export const register = async (body: Register) => {
           email,
           password: hashedPassword,
           referralCode: code,
+          role: "client",
         },
       });
 
