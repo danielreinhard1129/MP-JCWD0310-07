@@ -1,204 +1,219 @@
 "use client";
 
+import Dropzone from "@/components/Dropzone";
 import FormInput from "@/components/FormInput";
+import PreviewImages from "@/components/PreviewImages";
+import RichTextEditor from "@/components/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import useCreateEvent from "@/hooks/api/admin/useCreateEvent";
+import { useAppSelector } from "@/redux/hooks";
+import { IFormCreatedEvent } from "@/types/event.type";
 import { useFormik } from "formik";
-import { ArrowBigDownDash } from "lucide-react";
 import { useState } from "react";
 import { EVENT_CATEGORIES } from "../../../constant";
-import FormTextArea from "@/components/FormTextArea";
-import AuthGuardOrganizer from "@/hoc/AuthGuardOrganizer"
+import { validationSchema } from "./validationSchema";
 
 const CreateEvent = () => {
-  const [isPaidEvent, setIsPaidEvent] = useState(false);
-  const [isClick, setIsClick] = useState(false);
+  const { createEvent } = useCreateEvent();
+  const { id } = useAppSelector((state) => state.user);
+  const [formattedPrice, setFormattedPrice] = useState("");
 
-  const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        eventName: "",
-        price: "",
-        date: "",
-        time: "",
-        location: "",
-        description: "",
-        availableSeats: "",
-        promotion: "",
-      },
-      // validationSchema,
-      onSubmit: () => {},
-    });
-
-  const handleClick = () => {
-    setIsClick(!isClick);
+  const formatPrice = (value: any) => {
+    if (!value) return "";
+    return `${parseFloat(value).toLocaleString("id-ID")}`;
   };
 
-  return (
-    <>
-      <main
-        className="padding-container max-container"
-        style={{
-          backgroundImage: `url('/bg-create.jpg')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="flex justify-center">
-          <Card className="relative mb-10 mt-10 px-0 md:px-10 ">
-            <CardHeader>
-              <CardTitle className="text-primary text-center text-3xl">
-                Create Your Event
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit}>
-                <div className="grid w-80 items-center gap-4">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger
-                      className="flex justify-start rounded-md border border-slate-300 px-3 py-2 font-sans text-xs text-zinc-500"
-                      style={{ width: "150px" }}
-                    >
-                      Select Category
-                    </DropdownMenuTrigger>
+  const handlePriceChange = (e: any) => {
+    const value = e.target.value.replace(/[^0-9]/g, "");
+    setFieldValue("price", value);
+    setFormattedPrice(formatPrice(value));
+  };
 
-                    <ArrowBigDownDash
-                      className="right-98 absolute top-20 ml-28 mt-3 text-xs text-stone-500"
-                      onClick={handleClick}
-                    />
-                    {isClick && (
-                      <ul className="rounded-md border border-slate-300">
-                        {EVENT_CATEGORIES.map((link, index) => (
-                          <li
-                            key={index}
-                            className="cursor-pointer p-1 hover:bg-slate-50"
-                          >
-                            {link.title}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </DropdownMenu>
-                  <FormInput
-                    name="eventName"
-                    type="text"
-                    label="Event Name"
-                    placeholder="Event Name"
-                    value={values.eventName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.eventName}
-                    isError={!!touched.eventName && !!errors.eventName}
-                  />
-                  {isPaidEvent && (
-                    <FormInput
-                      name="price"
-                      type="number"
-                      label="Price (IDR)"
-                      placeholder="Price (IDR)"
-                      value={values.price}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={errors.price}
-                      isError={!!touched.price && !!errors.price}
-                    />
-                  )}
-                  <FormInput
-                    name="date"
-                    type="date"
-                    label="Date"
-                    placeholder="YYYY-MM-DD"
-                    value={values.date}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.date}
-                    isError={!!touched.date && !!errors.date}
-                  />
-                  <FormInput
-                    name="time"
-                    type="time"
-                    label="Time"
-                    placeholder="HH:MM"
-                    value={values.time}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.time}
-                    isError={!!touched.time && !!errors.time}
-                  />
-                  <FormInput
-                    name="location"
-                    type="text"
-                    label="Location"
-                    placeholder="Location"
-                    value={values.location}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.location}
-                    isError={!!touched.location && !!errors.location}
-                  />
-                  <FormTextArea
-                    name="description"
-                    label="Description"
-                    placeholder="Description"
-                    value={values.description}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.description}
-                    isError={!!touched.description && !!errors.description}
-                  />
-                  <FormInput
-                    name="availableSeats"
-                    type="number"
-                    label="Available Seats"
-                    placeholder="Available Seats"
-                    value={values.availableSeats}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.availableSeats}
-                    isError={
-                      !!touched.availableSeats && !!errors.availableSeats
-                    }
-                  />
-                  <FormInput
-                    name="promotion"
-                    type="text"
-                    label="Promotion (if any)"
-                    placeholder="Promotion details"
-                    value={values.promotion}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={errors.promotion}
-                    isError={!!touched.promotion && !!errors.promotion}
-                  />
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="isPaidEvent"
-                      checked={isPaidEvent}
-                      onChange={() => setIsPaidEvent(!isPaidEvent)}
-                      className="form-checkbox text-primary h-5 w-5"
-                    />
-                    <label htmlFor="isPaidEvent" className="text-primary ml-2">
-                      Paid Event
-                    </label>
-                  </div>
-                </div>
-                <Button className="mt-6 w-full">Create Event</Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-      <Separator className="mb-36 mt-36" />
-    </>
+  const {
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik<IFormCreatedEvent>({
+    initialValues: {
+      category: "",
+      title: "",
+      price: "",
+      startEvent: "",
+      endEvent: "",
+      location: "",
+      description: "",
+      thumbnail: [],
+      stock: "",
+      isFree: false,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      createEvent({ ...values, userId: id });
+    },
+  });
+
+  console.log(errors)
+
+  return (
+    <main className="max-w-6xl mx-auto px-4 py-10">
+      <Card className="shadow-lg">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-semibold text-primary">
+            Create Your Event
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Category
+                </label>
+                <select
+                  id="category"
+                  name="category"
+                  value={values.category}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:outline-none sm:text-sm"
+                >
+                  <option value="">Select a category</option>
+                  {EVENT_CATEGORIES.map((event, index) => (
+                    <option key={index} value={event.title}>
+                      {event.title}
+                    </option>
+                  ))}
+                </select>
+                {touched.category && errors.category && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.category}
+                  </p>
+                )}
+              </div>
+              <FormInput
+                name="title"
+                type="text"
+                label="Event Name"
+                placeholder="Event Name"
+                value={values.title}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.title}
+                isError={!!touched.title && !!errors.title}
+              />
+              <div>
+                <label
+                  htmlFor="price"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Price (IDR)
+                </label>
+                <input
+                  id="price"
+                  name="price"
+                  type="text"
+                  placeholder="Price (IDR)"
+                  value={formattedPrice}
+                  onChange={handlePriceChange}
+                  onBlur={handleBlur}
+                  className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:outline-none sm:text-sm"
+                />
+                {touched.price && errors.price && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.price}
+                  </p>
+                )}
+              </div>
+              <FormInput
+                name="location"
+                type="text"
+                label="Location"
+                placeholder="Location"
+                value={values.location}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.location}
+                isError={!!touched.location && !!errors.location}
+              />
+              <FormInput
+                name="startEvent"
+                type="datetime-local"
+                label="Start Date"
+                placeholder="YYYY-MM-DD"
+                value={values.startEvent}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.startEvent as string}
+                isError={!!touched.startEvent && !!errors.startEvent}
+              />
+              <FormInput
+                name="endEvent"
+                type="datetime-local"
+                label="End Date"
+                placeholder="YYYY-MM-DD"
+                value={values.endEvent}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.endEvent as string}
+                isError={!!touched.endEvent && !!errors.endEvent}
+              />
+              <FormInput
+                name="stock"
+                type="number"
+                label="Available Seats"
+                placeholder="Available Seats"
+                value={values.stock}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.stock}
+                isError={!!touched.stock && !!errors.stock}
+              />
+            </div>
+            <div className="mt-6 grid grid-cols-1 gap-6">
+              <PreviewImages
+                fileImages={values.thumbnail}
+                onRemoveImage={(idx: number) =>
+                  setFieldValue(
+                    "thumbnail",
+                    values.thumbnail.toSpliced(idx, 1)
+                  )
+                }
+              />
+              <Dropzone
+                isError={Boolean(errors.thumbnail)}
+                label="Thumbnail"
+                onDrop={(files) =>
+                  setFieldValue("thumbnail", [
+                    ...values.thumbnail,
+                    ...files.map((file) => file),
+                  ])
+                }
+              />
+              <RichTextEditor
+                onChange={(html: string) => setFieldValue("description", html)}
+                label="Description"
+                value={values.description}
+                isError={Boolean(errors.description)}
+              />
+            </div>
+            <Button type="submit" className="mt-6 w-full">
+              Create Event
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      <Separator className="my-12"/>
+    </main>
   );
 };
 
-export default AuthGuardOrganizer(CreateEvent);
+export default CreateEvent;

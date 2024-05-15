@@ -5,5 +5,4 @@ export interface User {
   password: string;
   reff?: string;
 }
-
   

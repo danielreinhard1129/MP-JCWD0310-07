@@ -129,7 +129,6 @@ const TopEvent: React.FC = () => {
           </Carousel>
         </div>
       </main>
-      <hr className="my-24 w-full border-gray-300" />
     </>
   );
 };

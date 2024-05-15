@@ -63,9 +63,9 @@ model Event {
   description String    @db.LongText()
   stock       Int
   booked      Int?
-  is_free     Boolean?
-  start_event DateTime
-  end_event   DateTime
+  isFree      Boolean?
+  startEvent  DateTime
+  endEvent    DateTime
   category    String
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
@@ -84,7 +84,6 @@ model Reward {
   userId  Int   @unique
 
   expiredDate DateTime @updatedAt
-  
 
   @@map("rewards")
 }

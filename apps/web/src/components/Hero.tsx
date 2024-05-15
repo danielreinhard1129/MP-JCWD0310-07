@@ -1,34 +1,8 @@
 "use client";
 
-import { SearchIcon } from "lucide-react";
-import { Input } from "./ui/input";
-import { useEffect, useRef, useState } from "react";
+import AutoComplete from "./AutoComplete";
 
 const Hero = () => {
-  const [searchClick, setSearchClick] = useState(false);
-  const searchClickRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (
-        searchClickRef.current &&
-        !searchClickRef.current.contains(event.target)
-      ) {
-        setSearchClick(false);
-      }
-    };
-
-    document.body.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.body.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
-  const handleClick = () => {
-    setSearchClick(!searchClick);
-  };
-
   return (
     <section
       className="max-container padding-container flex justify-center gap-10 pb-40 md:gap-14 lg:py-28"
@@ -39,26 +13,17 @@ const Hero = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="bottom-0 mt-11 flex flex-1 flex-col items-center md:bottom-14 md:mt-0 relative">
-        <div className="bold-40 text-center xl:max-w-[600px] mb-10 font-sans">
+      <div className="relative bottom-0 mt-11 flex flex-1 flex-col items-center md:bottom-14 md:mt-0">
+        <div className="bold-40 mb-10 text-center font-sans xl:max-w-[600px]">
           <h1 className="text-white">Unlock Your Next Experience</h1>
         </div>
-        <p className="regular-24 bold-20 mt-6 text-center text-white xl:max-w-[550px] relative bottom-8 font-sans">
-          Your gateway to unforgettable events is <span className="text-teal-400"> just a click away!  </span>
+        <p className="regular-24 bold-20 relative bottom-8 mt-6 max-w-[300px] text-center font-sans text-white xl:max-w-[550px]">
+          Your gateway to unforgettable events is{" "}
+          <span className="text-teal-400"> just a click away! </span>
         </p>
-        <div
-          className="relative mt-4 flex items-center p-4 px-4"
-          ref={searchClickRef}
-        >
-          <SearchIcon
-            className={`absolute left-7 top-1/2 -translate-y-1/2 ${searchClick ? "text-red-400" : ""}`}
-          />
-          <Input
-            className="mr-2 py-7 pl-14 pr-12 font-bold text-slate-700 md:pr-44"
-            type="text"
-            placeholder="What do you want to see?"
-            onClick={handleClick}
-          />
+
+        <div className="md:pt-20 relative bottom-8 pt-12 md:bottom-12">
+          <AutoComplete />
         </div>
       </div>
     </section>
