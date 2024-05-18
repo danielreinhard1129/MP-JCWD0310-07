@@ -2,6 +2,10 @@ import { User } from '@/types/user.type';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { number } from 'yup';
 
+interface Point {
+  total: number;
+}
+
 const initialState: User = {
   id: 0,
   fullName: '',
@@ -9,7 +13,7 @@ const initialState: User = {
   password: '',
   role: '',
   referralCode: '',
-  points: [{total : 0}],
+  points: [],
 };
 
 export const userSlice = createSlice({
@@ -33,5 +37,6 @@ export const userSlice = createSlice({
 });
 
 export const { loginAction, logoutAction } = userSlice.actions;
+
 
 export default userSlice.reducer;

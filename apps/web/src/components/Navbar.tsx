@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
-import { LogOut, Menu, User } from "lucide-react";
+import { getTotalPoints } from "@/utils/point";
+import { LogOut, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { NAV_EVENT_LINKS } from "../../constant";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -29,18 +30,24 @@ export const Navbar: React.FC = () => {
   const [isHoveringSubtitle, setIsHoveringSubtitle] = useState<boolean>(false);
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const dispatch = useAppDispatch();
   const { id, email, referralCode, role, points } = useAppSelector(
     (state) => state.user,
   );
 
+  const user = useAppSelector((state) => state.user);
+  const totalPoints = getTotalPoints(user);
+
+  console.log(totalPoints);
+
   const logout = () => {
     localStorage.removeItem("token");
     dispatch(logoutAction());
+    router.push("/");
   };
 
-  
   // Function to handle mouse enter event on a label
   const handleLabelMouseEnter = (label: string) => {
     setSelectedLabel(label);
@@ -78,7 +85,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav
-      className="flex items-center justify-between bg-black py-7 text-white"
+      className={`${pathname.startsWith("/dashboard-event") ? "hidden" : ""} flex items-center justify-between bg-black py-7 text-white`}
       style={{ height: "80px" }}
     >
       <div className="ml-4 flex justify-start gap-4 md:ml-10">
@@ -195,24 +202,46 @@ export const Navbar: React.FC = () => {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuLabel>{email}</DropdownMenuLabel>
-                {role !== "organizer" && (
-              <DropdownMenuLabel className="font-extrabold text-blue-400">
-                Reff: {referralCode}
+              <DropdownMenuLabel className="text-base">
+                My Account
               </DropdownMenuLabel>
-                )}
-              <DropdownMenuLabel className="font-extrabold text-blue-400">
-                Role: {role}
+              <DropdownMenuLabel className="font-light italic">
+                {email}
               </DropdownMenuLabel>
-              {role !== "organizer" && points?.[0] && (
-                <DropdownMenuLabel className="font-extrabold text-blue-400">
-                  Point: {points[0].total}
+              <DropdownMenuLabel className="font-extrabold text-blue-400">
+                {role}
+              </DropdownMenuLabel>
+              {role == "client" && (
+                <DropdownMenuLabel
+                  className="cursor-pointer"
+                  onClick={() => router.push("/dashboard-profile/profile")}
+                >
+                  Profile
+                </DropdownMenuLabel>
+              )}
+              {role == "client" && (
+                <DropdownMenuLabel
+                  className="cursor-pointer"
+                  onClick={() => router.push("/dashboard-profile/order")}
+                >
+                  Order
+                </DropdownMenuLabel>
+              )}
+              {role !== "client" && (
+                <DropdownMenuLabel
+                  className="cursor-pointer font-normal"
+                  onClick={() => router.push("/dashboard")}
+                >
+                  Dashboard
                 </DropdownMenuLabel>
               )}
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logout} className="cursor-pointer gap-1">
-              <LogOut size={20} strokeWidth={1.5} />Logout
+              <DropdownMenuItem
+                onClick={logout}
+                className="cursor-pointer gap-1"
+              >
+                <LogOut size={20} strokeWidth={1.5} />
+                Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -222,16 +251,63 @@ export const Navbar: React.FC = () => {
           <h1>Support</h1>
           <Button
             onClick={() => router.push("/login")}
-            className="bg-slate-600"
+            className={`bg-slate-600 ${pathname == "/register" ? "hidden" : ""} ${pathname == "/register-organizer" ? "hidden" : ""} ${pathname == "/login" ? "hidden" : ""}`}
           >
             Login
           </Button>
         </div>
       )}
 
-      <ButtonCircle className="mr-4 flex items-center bg-white text-black md:hidden">
-        <User />
-      </ButtonCircle>
+      <div className="mr-4 flex items-center bg-white text-black md:hidden">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel className="text-base">
+              My Account
+            </DropdownMenuLabel>
+            <DropdownMenuLabel className="font-light italic">
+              {email}
+            </DropdownMenuLabel>
+            <DropdownMenuLabel className="font-extrabold text-blue-400">
+              {role}
+            </DropdownMenuLabel>
+            {role == "client" && (
+              <DropdownMenuLabel
+                className="cursor-pointer"
+                onClick={() => router.push("/dashboard-profile/profile")}
+              >
+                Profile
+              </DropdownMenuLabel>
+            )}
+            {role == "client" && (
+              <DropdownMenuLabel
+                className="cursor-pointer"
+                onClick={() => router.push("/dashboard-profile/order")}
+              >
+                Order
+              </DropdownMenuLabel>
+            )}
+            {role !== "client" && (
+              <DropdownMenuLabel
+                className="cursor-pointer font-normal"
+                onClick={() => router.push("/dashboard")}
+              >
+                Dashboard
+              </DropdownMenuLabel>
+            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={logout} className="cursor-pointer gap-1">
+              <LogOut size={20} strokeWidth={1.5} />
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </nav>
   );
 };

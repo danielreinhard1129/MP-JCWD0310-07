@@ -34,3 +34,16 @@ export interface IFormCreatedEvent {
   thumbnail: File[];
   userId?: number;
 }
+
+export interface ListEvent {
+  id: number;
+  title: string;
+  location: string;
+  price: number;
+  stock: number;
+  description: string;
+  startEvent: string; // Ensure this matches the backend field name
+  endEvent: string; // Ensure this matches the backend field name
+  thumbnail: string;
+}
+

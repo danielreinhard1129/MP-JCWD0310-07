@@ -42,7 +42,7 @@ const Page = ({ params }: { params: { category: string } }) => {
     <main className="">
       {/* Jumbotron */}
       <section
-        className="md:py-72 py-40"
+        className="py-40 md:py-72"
         style={{
           backgroundImage: `url('${backgroundImage}')`,
           backgroundSize: "cover",
@@ -50,10 +50,12 @@ const Page = ({ params }: { params: { category: string } }) => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="bold-40 ml-5 text-base xl:max-w-[400px] flex flex-col justify-start">
+        <div className="bold-40 ml-5 flex flex-col justify-start text-base xl:max-w-[400px]">
           <h1 className="text-white">Find your favorite events here</h1>
-          <p className="font-sans text-2xl mt-4 text-white font-bold">Alright, here we go! click your favorite event</p>
-          <Separator className="mt-5"/>
+          <p className="mt-4 font-sans text-2xl font-bold text-white">
+            Alright, here we go! click your favorite event
+          </p>
+          <Separator className="mt-5" />
         </div>
       </section>
 
@@ -74,6 +76,7 @@ const Page = ({ params }: { params: { category: string } }) => {
                 startEvent={event.startEvent}
                 endEvent={event.endEvent}
                 eventId={event.id}
+  
               />
             </div>
           ))}
