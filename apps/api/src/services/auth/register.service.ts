@@ -1,7 +1,6 @@
 import { hashPassword } from "@/lib/bcrypt";
-import prisma from "@/prisma";
-import { User } from "@prisma/client";
 import { generateRefferalCode } from "@/lib/generateReferralCode";
+import prisma from "@/prisma";
 
 interface Register {
   fullName: string;
@@ -20,8 +19,8 @@ export const register = async (body: Register) => {
 
     const today = new Date();
     const updateDate = new Date(
-      today.setMonth(today.setMonth(today.getMonth() + 3))
-    )
+      today.setMonth(today.setMonth(today.getMonth() + 3)),
+    );
 
     const hashedPassword = await hashPassword(password);
     const existingUser = await prisma.user.findFirst({
@@ -44,6 +43,9 @@ export const register = async (body: Register) => {
       });
 
       if (reff) {
+        const today = new Date();
+        const expirationDate = new Date(today.setMonth(today.getMonth() + 3));
+
         const reffOwner = await prisma.user.findFirst({
           where: { referralCode: reff },
         });
@@ -58,6 +60,14 @@ export const register = async (body: Register) => {
               total: {
                 increment: 10000,
               },
+              expiredAt: expirationDate
+            },
+          });
+
+          await prisma.reward.create({
+            data: {
+              userId: user.id, 
+              rewards: 10, 
             },
           });
         }

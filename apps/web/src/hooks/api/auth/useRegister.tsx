@@ -1,21 +1,31 @@
-'use client';
+"use client";
 
-import { axiosInstance } from '@/lib/axios';
-import { User } from '@/types/user.type';
-import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { toast, useToast } from "@/components/ui/use-toast";
+import { axiosInstance } from "@/lib/axios";
+import { User } from "@/types/user.type";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
-interface RegisterArgs extends Omit<User, 'id' | 'points' | 'role' | 'referralCode'> {}
+interface RegisterArgs
+  extends Omit<User, "id" | "points" | "role" | "referralCode"> {}
 const useRegister = () => {
   const router = useRouter();
+  const { toast } = useToast();
   const register = async (payload: RegisterArgs) => {
     try {
-      await axiosInstance.post('/auth/register', payload);
-      router.push('/login');
+      await axiosInstance.post("/auth/register", payload);
+      toast({
+        title: "Register Success",
+        description: "You are succesfully register as user",
+      });
+      router.push("/login");
     } catch (error) {
       //   console.log(error);
       if (error instanceof AxiosError) {
-        alert(JSON.stringify(error.message));
+       toast({
+        description: "Email already exist!",
+        variant: "destructive"
+       })
       }
     }
   };
