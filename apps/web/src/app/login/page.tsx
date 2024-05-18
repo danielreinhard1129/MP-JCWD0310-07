@@ -27,7 +27,7 @@ const Login = () => {
   return (
     <div className="relative flex md:items-center justify-center min-h-screen bg-slate-100 p-4 sm:p-0">
       <div className="mx-auto grid h-full w-full max-w-4xl grid-cols-1 sm:grid-cols-3 sm:h-[600px] sm:w-[900px]">
-        <div className="col-span-1 bg-black p-4 sm:rounded-l-xl sm:rounded-tr-none sm:p-0 border border-r-slate-600">
+        <div className="col-span-1 bg-black p-4 sm:rounded-l-xl sm:rounded-tr-none sm:p-0 border border-r-red-200">
           <div className="mt-5 sm:mt-40 md:mt-48 flex flex-col items-center justify-center gap-5">
             <p className="text-2xl font-extrabold text-red-500">WELCOME BACK!</p>
             <p className="text-center font-semibold text-white">
@@ -47,7 +47,7 @@ const Login = () => {
             </Button>
           </div>
         </div>
-        <div className="relative col-span-2 bg-black rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none border-l-slate-600 border">
+        <div className="relative col-span-2 bg-black rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none border-l-red-200 border">
           <Image src='/bg-create.jpg' alt="background" fill className="w-full h-full opacity-50 rounded-b-xl sm:rounded-r-xl"/>
           <main className="container mx-auto h-full sm:h-[40vh] px-4 absolute">
             <div className="mt-10 sm:mt-32 flex justify-center">

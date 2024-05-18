@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 const Sidebar = () => {
   const router = useRouter();
   return (
-    <div className="col-span-1 flex items-center justify-center bg-white">
+    <div className="col-span-1 flex items-center justify-center bg-white top-0 h-screen">
       <div className="-mt-10 h-[700px] w-80 rounded-3xl bg-slate-700">
-        <div className="flex flex-col justify-start gap-12 pl-20 pt-36 text-xl text-white">
+        <div className="flex flex-col justify-start gap-12 pl-20 pt-44 text-xl text-white">
           <h4
             className="flex cursor-pointer gap-2"
             onClick={() => router.push("/dashboard")}

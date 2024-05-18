@@ -1,6 +1,7 @@
 import { createEventService } from "@/services/event/create-event.service";
 import { getBlogService } from "@/services/event/get-event.service";
 import { getEventsService } from "@/services/event/get-events.service";
+import { getEventsByOrganizerService } from "@/services/event/get-eventsByOrganizer.service";
 import { NextFunction, Request, Response } from "express";
 
 export class EventController {
@@ -46,6 +47,29 @@ export class EventController {
       return res.status(200).send(result);
     } catch (error) {
       throw error;
+    }
+  }
+
+  async getEventsByOrganizerController(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const query = {
+        id:  parseInt(req.query.id as string),
+        take : parseInt(req.query.take as string) || 10,
+        page: parseInt(req.query.page as string) || 1,
+        sortBy: (req.query.sortBy as string) || 'createdAt',
+        sortOrder: (req.query.sortOrder as string) || 'desc',
+        search: (req.query.search as string ) || '',
+      }
+      const result = await getEventsByOrganizerService(query);
+     
+
+      return res.status(200).send(result);
+    } catch (error) {
+      next(error);
     }
   }
 }

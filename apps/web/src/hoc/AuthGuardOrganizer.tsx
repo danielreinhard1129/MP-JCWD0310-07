@@ -4,7 +4,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function AuthGuard(Component: any) {
+export default function AuthGuardOrganizer(Component: any) {
   return function IsAuth(props: any) {
     const [isLoading, setIsLoading] = useState(true);
 

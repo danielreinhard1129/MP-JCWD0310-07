@@ -3,8 +3,9 @@ import prisma from '../../prisma';
 export const keepLoginService = async (id: number) => {
   try {
     const user = await prisma.user.findFirst({
-      where: { id }, include: {points: true}
+      where: { id }, include: {points: true} 
     });
+    
     if (!user) {
       throw new Error('invalid user id');
     }

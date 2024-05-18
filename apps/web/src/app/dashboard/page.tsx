@@ -32,7 +32,7 @@ const EventDashboard = () => {
     <div className="mb-14 grid h-screen grid-cols-4">
       <div className="col-span-1 flex items-center justify-center bg-white">
         <div className="h-[700px] w-80 rounded-3xl bg-slate-700 -mt-10">
-          <div className="flex flex-col justify-start gap-12 pl-20 pt-32 text-xl text-white mb-14">
+          <div className="flex flex-col justify-start gap-12 pl-20 pt-44 text-xl text-white mb-14">
             <h4 className="flex gap-2 cursor-pointer" onClick={() => router.push('/dashboard')}>
               <LayoutDashboard size={20} strokeWidth={1.5} />
               Dashboard

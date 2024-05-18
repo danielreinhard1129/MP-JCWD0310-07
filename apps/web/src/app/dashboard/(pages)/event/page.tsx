@@ -1,64 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logoutAction } from "@/redux/slices/userSlice";
-import { LogOut } from "lucide-react";
-import axios from "axios";
-import { Event } from "@/types/event.type"; // Import the Event type
+import { useAppSelector } from "@/redux/hooks";
+import useGetEventsByOrganizer from "@/hooks/api/admin/useGetEventsByOrganizer";
+import { appConfig } from "@/utils/config";
+import CardEvent from "@/components/CardEvent";
+import AuthGuardOrganizer from "@/hoc/AuthGuardOrganizer";
+import Pagination from "@/components/Pagination";
+import { useState } from "react";
 
 const Events = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const [events, setEvents] = useState<Event[]>([]);
-  const { id, email, referralCode, role, points } = useAppSelector(
-    (state) => state.user,
-  );
+  const [page, setPage] = useState<number>(1);
+  const { id } = useAppSelector((state) => state.user);
+  const { data: data, meta } = useGetEventsByOrganizer({
+    id,
+    page,
+    take: 8,
+  });
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    dispatch(logoutAction());
-    router.push("/");
-  };
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        console.log("Fetching events...");
-        const response = await axios.get<Event[]>("/api/events");
-        console.log("Fetched events:", response.data);
-        if (Array.isArray(response.data)) {
-          setEvents(response.data);
-        } else {
-          console.error("Response data is not an array:", response.data);
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error("Axios error while fetching events:", error.message);
-          console.error("Axios error details:", error.response?.data);
-        } else {
-          console.error("Unexpected error while fetching events:", error);
-        }
-      }
-    };
-
-    fetchEvents();
-  }, []);
+  console.log(data);
+  
+  const handleChangePaginate = ({ selected }: { selected: number }) => {     setPage(selected + 1);   };
+  
 
   return (
-    <div className="mb-14 grid h-screen grid-cols-4">
+    <div className="mb-14 grid h-full grid-cols-4 relative">
       <Sidebar />
       <div className="col-span-3 bg-white">
         <div className="mr-5 mt-5 flex h-20 w-auto items-center justify-between rounded-2xl bg-slate-300 pl-5 text-red-600">
@@ -74,50 +42,28 @@ const Events = () => {
             </div>
           </div>
         </div>
-        <div className="mr-5 mt-5 flex h-[600px] items-center justify-center rounded-2xl bg-slate-700">
-          <table className="m-2 h-[550px] w-full rounded-2xl bg-slate-300">
-            <thead className="w-full">
-              <tr className="mx-5 mt-5 flex items-center justify-between gap-5 rounded-md border border-black bg-slate-100 px-2 text-center">
-                <th>No</th>
-                <th>Title</th>
-                <th>Location</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Description</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Image</th>
-              </tr>
-            </thead>
-            <tbody className="overscroll-contain">
-              {events.length > 0 ? (
-                events.map((event, index) => (
-                  <tr
-                    key={event.id}
-                    className="mx-5 mt-5 flex items-center justify-between gap-5 rounded-md border border-black bg-slate-100 px-2 text-center"
-                  >
-                    <td>{index + 1}</td>
-                    <td>{event.title}</td>
-                    <td>{event.location}</td>
-                    <td>{event.price}</td>
-                    <td>{event.stock}</td>
-                    <td>{event.description}</td>
-                    <td>{new Date(event.startEvent).toLocaleDateString()}</td>
-                    <td>{new Date(event.endEvent).toLocaleDateString()}</td>
-                    <td></td>
-                  </tr>
-                ))
-              ) : (
-                <tr className="mx-5 mt-5 flex items-center justify-between gap-5 rounded-md border border-black bg-slate-100 px-2 text-center">
-                  <td colSpan={9}>No events found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 gap-6 p-0 py-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-4">
+          {data.map((event, index) => (
+            <CardEvent
+              key={event.id}
+              title={event.title}
+              startDate={new Date(event.startEvent)}
+              endDate={new Date(event.endEvent)}
+              location={event.location}
+              thumbnail={`${appConfig.baseUrl}/assets${event.thumbnail}`}
+              eventId={event.id}
+              price={event.price}
+            />
+          ))}
         </div>
+        <Pagination
+        total={meta?.total || 0 }
+        take={meta?.take || 0}
+        onChangePage={handleChangePaginate}
+        />
       </div>
     </div>
   );
 };
 
-export default Events;
+export default AuthGuardOrganizer(Events);

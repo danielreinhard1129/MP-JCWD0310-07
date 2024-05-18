@@ -9,7 +9,6 @@ const Profile = () => {
     <div className="grid grid-cols-4 bg-slate-300">
       <SidebarProfile/>
       <div className="col-span-3">
-        
       </div>
     </div>
   );
