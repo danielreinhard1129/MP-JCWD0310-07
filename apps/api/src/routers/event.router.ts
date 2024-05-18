@@ -5,10 +5,10 @@ import { Router } from "express";
 
 export class EventRouter {
   private router: Router;
-  private EventController: EventController;
+  private eventController: EventController;
 
   constructor() {
-    this.EventController = new EventController();
+    this.eventController = new EventController();
     this.router = Router();
     this.initializeRoutes();
   }
@@ -18,10 +18,11 @@ export class EventRouter {
       "/",
       verifyToken,
       uploader("IMG", "/images").array("thumbnail", 1),
-      this.EventController.createEventController,
+      this.eventController.createEventController,
     );
-    this.router.get('/', this.EventController.getEventsController)
-    this.router.get('/:id', this.EventController.getEventController)
+    this.router.get('/', this.eventController.getEventsController)
+    this.router.get('/dashboard/event',this.eventController.getEventsByOrganizerController);
+    // this.router.get('/:id', this.eventController.getEventController)
   }
 
   getRouter(): Router {

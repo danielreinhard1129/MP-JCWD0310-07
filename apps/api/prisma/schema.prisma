@@ -21,17 +21,21 @@ model Sample {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   fullName     String
   email        String
   password     String
   referralCode String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
   role         String
   points       Point[]
   Event        Event[]
   Reward       Reward[]
+  UserCoupon   UserCoupon[]
+  Coupon       Coupon[]
+  UserVoucher  UserVoucher[]
+  Voucher      Voucher[]
 
   @@map("users")
 }
@@ -63,9 +67,9 @@ model Event {
   description String    @db.LongText()
   stock       Int
   booked      Int?
-  isFree     Boolean?
-  startEvent DateTime
-  endEvent   DateTime
+  isFree      Boolean?
+  startEvent  DateTime
+  endEvent    DateTime
   category    String
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
@@ -78,14 +82,67 @@ model Event {
 }
 
 model Reward {
-  id      Int   @id @default(autoincrement())
-  rewards Float
-  user    User  @relation(fields: [userId], references: [id])
-  userId  Int   @unique
+  id          Int      @id @default(autoincrement())
+  rewards     Float
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int      @unique
   expiredDate DateTime @updatedAt
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("rewards")
+}
+
+model UserCoupon {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  couponId Int
+  isUse    Boolean
+
+  user   User   @relation(fields: [userId], references: [id])
+  coupon Coupon @relation(fields: [couponId], references: [id])
+
+  @@map("userCoupons")
+}
+
+model Coupon {
+  id             Int          @id @default(autoincrement())
+  code           String       @unique
+  expirationDate DateTime
+  discountAmount Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  userId         Int
+  user           User         @relation(fields: [userId], references: [id])
+  UserCoupon     UserCoupon[]
+
+  @@map("coupons")
+}
+
+model UserVoucher {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  voucherId Int
+  isUse     Boolean
+
+  user    User    @relation(fields: [userId], references: [id])
+  voucher Voucher @relation(fields: [voucherId], references: [id])
+
+  @@map("userVouchers")
+}
+
+model Voucher {
+  id             Int      @id @default(autoincrement())
+  code           String
+  discountAmount Int
+  expirationDate DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  userId         Int
+
+  user        User          @relation(fields: [userId], references: [id])
+  UserVoucher UserVoucher[]
+
+  @@map("vouchers")
 }

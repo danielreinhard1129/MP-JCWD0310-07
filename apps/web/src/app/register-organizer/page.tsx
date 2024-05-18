@@ -27,12 +27,12 @@ const RegisterOrganizer = () => {
   });
 
   return (
-    <div className="relative flex min-h-screen md:items-center justify-center bg-slate-100 p-4 sm:p-0">
-      <div className="mx-auto grid h-full w-full max-w-4xl grid-cols-1 sm:grid-cols-3 sm:h-[600px] sm:w-[900px]">
-        <div className="col-span-1 bg-black p-4 rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none sm:p-0 border border-r-slate-600">
+    <div className="relative flex min-h-screen justify-center bg-slate-100 p-4 sm:p-0 md:items-center">
+      <div className="mx-auto grid h-full w-full max-w-4xl grid-cols-1 sm:h-[600px] sm:w-[900px] sm:grid-cols-3">
+        <div className="col-span-1 rounded-t-xl border border-r-red-200 bg-black p-4 sm:rounded-l-xl sm:rounded-tr-none sm:p-0">
           <div className="h-[30px] w-[30px]">
             <div
-              className="relative ml-2 h-full w-full cursor-pointer rounded-full bg-white mt-2"
+              className="relative ml-2 mt-2 h-full w-full cursor-pointer rounded-full bg-white"
               onClick={() => router.push("/register")}
             >
               <Image
@@ -43,12 +43,12 @@ const RegisterOrganizer = () => {
               />
             </div>
           </div>
-          <div className="mt-10 sm:mt-36 flex flex-col items-center justify-center gap-5">
+          <div className="mt-10 flex flex-col items-center justify-center gap-5 sm:mt-36">
             <p className="text-2xl font-extrabold text-red-500">WELCOME!</p>
             <p className="mx-5 text-center font-semibold text-white">
-              To create your event please register first as
-              <span className="text-red-500">organizer</span> with your
-              personal info
+              To create your event please register first as{" "}
+              <span className="text-red-500">organizer</span> with your personal
+              info
             </p>
             <p className="mx-5 text-center text-sm font-light text-white">
               Lets promote your event and spread happiness.
@@ -56,10 +56,15 @@ const RegisterOrganizer = () => {
             </p>
           </div>
         </div>
-        <div className="relative col-span-1 sm:col-span-2 bg-black rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none border border-l-slate-600">
-          <Image src="/bg-create.jpg" alt="background" fill className="w-full h-full opacity-50 rounded-b-xl sm:rounded-r-xl" />
-          <main className="container mx-auto h-full sm:h-[40vh] px-4 absolute">
-            <div className="mt-10 sm:mt-28 flex justify-center">
+        <div className="relative col-span-1 rounded-b-xl border border-l-red-200 bg-black sm:col-span-2 sm:rounded-r-xl sm:rounded-bl-none">
+          <Image
+            src="/bg-create.jpg"
+            alt="background"
+            fill
+            className="h-full w-full rounded-b-xl opacity-50 sm:rounded-r-xl"
+          />
+          <main className="container absolute mx-auto h-full px-4 sm:h-[40vh]">
+            <div className="mt-10 flex justify-center sm:mt-28">
               <Card>
                 <CardHeader>
                   <CardTitle className="text-primary text-center text-2xl">
