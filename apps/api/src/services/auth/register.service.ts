@@ -50,6 +50,7 @@ export const register = async (body: Register) => {
           where: { referralCode: reff },
         });
 
+
         console.log(reffOwner);
         if (reffOwner) {
           await prisma.point.updateMany({
@@ -67,7 +68,8 @@ export const register = async (body: Register) => {
           await prisma.reward.create({
             data: {
               userId: user.id, 
-              rewards: 10, 
+              rewards: 10,
+              expiredDate: expirationDate 
             },
           });
         }

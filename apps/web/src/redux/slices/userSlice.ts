@@ -13,7 +13,9 @@ const initialState: User = {
   password: '',
   role: '',
   referralCode: '',
+  createdAt: '',
   points: [],
+  rewards: [],
 };
 
 export const userSlice = createSlice({
@@ -27,7 +29,9 @@ export const userSlice = createSlice({
       state.referralCode = action.payload.referralCode;
       state.role = action.payload.role;
       state.points = action.payload.points;
-
+      state.createdAt = action.payload.createdAt;
+      state.rewards = action.payload.rewards;
+      
     },
     logoutAction: (state) => {
       state.id = 0;

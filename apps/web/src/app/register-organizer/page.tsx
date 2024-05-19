@@ -17,7 +17,6 @@ const RegisterOrganizer = () => {
       fullName: "",
       email: "",
       password: "",
-      referralCode: "",
       role: "organizer",
     },
     validationSchema,

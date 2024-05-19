@@ -1,3 +1,4 @@
+import { number } from 'yup';
 export interface User {
     id: number;
     fullName: string;
@@ -6,9 +7,14 @@ export interface User {
     reff?: string
     referralCode: string
     role: string
+    createdAt: string
     points: {
       total :number;
+      expiredAt:string;
     }[]
-    // referral_code?: string;
+    rewards: {
+      rewards:number;
+      expiredDate:string;
+    }[]
   }
   

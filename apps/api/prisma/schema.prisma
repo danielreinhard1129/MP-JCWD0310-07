@@ -31,12 +31,13 @@ model User {
   role         String
   points       Point[]
   Event        Event[]
-  Reward       Reward[]
+  rewards      Reward[]
   Transaction  Transaction[]
   UserCoupon   UserCoupon[]
   Coupon       Coupon[]
   UserVoucher  UserVoucher[]
   Voucher      Voucher[]
+  Transaction  Transaction[]
 
   @@map("users")
 }
@@ -84,42 +85,16 @@ model Event {
 }
 
 model Reward {
-  id          Int      @id @default(autoincrement())
-  rewards     Float
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int      @unique
+  id      Int  @id @default(autoincrement())
+  rewards Int
+  user    User @relation(fields: [userId], references: [id])
+  userId  Int  @unique
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   expiredDate DateTime @updatedAt
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
   @@map("rewards")
-}
-
-model UserCoupon {
-  id       Int     @id @default(autoincrement())
-  userId   Int
-  couponId Int
-  isUse    Boolean
-
-  user   User   @relation(fields: [userId], references: [id])
-  coupon Coupon @relation(fields: [couponId], references: [id])
-
-  @@map("userCoupons")
-}
-
-model Coupon {
-  id             Int          @id @default(autoincrement())
-  code           String       @unique
-  expirationDate DateTime
-  discountAmount Int
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  userId         Int
-  user           User         @relation(fields: [userId], references: [id])
-  UserCoupon     UserCoupon[]
-
-  @@map("coupons")
 }
 
 model UserVoucher {

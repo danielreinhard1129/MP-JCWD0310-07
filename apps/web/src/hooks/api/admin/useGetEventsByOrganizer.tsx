@@ -35,6 +35,7 @@ const useGetEventsByOrganizer = (queries: IGetEventsQueries) => {
 
   useEffect(() => {
     getEvents();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queries?.page, queries.id]);
 
   return { data, isLoading, meta,  refetch: getEvents };

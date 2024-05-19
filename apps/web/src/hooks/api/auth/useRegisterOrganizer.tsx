@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 interface RegisterArgsOrganizer
-  extends Omit<User, "id" | "points" | "reff" | "referralCode"> {
+  extends Omit<User, "id" | "points" | "reff" | "referralCode" | "rewards" | "expiredDate" | "createdAt" > {
   role: string;
 }
 const useRegisterOrganizer = () => {

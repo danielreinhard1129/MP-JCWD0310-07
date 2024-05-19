@@ -1,4 +1,21 @@
-import { User } from "./user.type";
+import { Event } from './event.type';
+import { User } from './user.type';
+
+
+export enum TransactionStatus {
+  PENDING = 'PENDING',
+  COMPLETE = 'COMPLETE',
+  WAITING = 'WAITING',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+}
+
+export interface IFormTransaction {
+  qty: number;
+  paymentProof: File[];
+  userId?: number;
+  eventId?: number;
+}
 
 export interface Transaction {
     id: number;
@@ -24,4 +41,5 @@ export interface IFormTransaction {
     transactionId?: number;
     paymentProof: File[]
     userVoucherId?: number | null
+
 }

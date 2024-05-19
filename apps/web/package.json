@@ -11,6 +11,7 @@
     "npx": "npx"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-label": "^2.0.2",
@@ -23,6 +24,7 @@
     "@types/node-schedule": "^2.1.7",
     "@types/react-select": "^5.0.1",
     "axios": "^1.6.8",
+    "chart.js": "^4.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -35,6 +37,7 @@
     "next-themes": "^0.3.0",
     "node-schedule": "^2.1.1",
     "react": "^18",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-markdown": "^9.0.1",

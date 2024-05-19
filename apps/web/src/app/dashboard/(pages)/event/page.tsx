@@ -9,6 +9,7 @@ import CardEvent from "@/components/CardEvent";
 import AuthGuardOrganizer from "@/hoc/AuthGuardOrganizer";
 import Pagination from "@/components/Pagination";
 import { useState } from "react";
+import { CirclePlus } from "lucide-react";
 
 const Events = () => {
   const router = useRouter();
@@ -34,10 +35,11 @@ const Events = () => {
           <div className="flex">
             <div className="m-5 h-10 w-40 items-center justify-center rounded-full bg-slate-700 text-center text-base font-medium text-white">
               <div
-                className="flex h-10 cursor-pointer items-center justify-center rounded-2xl hover:bg-red-600"
+                className="flex h-10 gap-2 cursor-pointer items-center justify-center rounded-2xl hover:bg-red-600"
                 onClick={() => router.push("/create-event")}
               >
                 Create Event
+                <CirclePlus />
               </div>
             </div>
           </div>
