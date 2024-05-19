@@ -19,7 +19,6 @@ const Register = () => {
       email: "",
       password: "",
       reff: "",
-      rewards: "",
     },
     validationSchema,
     onSubmit: async (values) => {

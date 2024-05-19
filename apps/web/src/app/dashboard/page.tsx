@@ -70,19 +70,6 @@ const EventDashboard = () => {
       <div className="col-span-3 bg-white">
         <div className="mr-5 mt-5 flex  h-20 w-auto items-center justify-between rounded-2xl bg-slate-300 pl-5 text-red-600">
           <div className="text-4xl font-bold">Overview</div>
-          <div className="flex">
-            <div className="m-5 grid h-10 w-72 grid-cols-3 items-center justify-center rounded-full bg-slate-700 text-center text-base font-medium text-white">
-              <div className="flex h-10 cursor-pointer items-center justify-center rounded-2xl hover:bg-red-600">
-                Day
-              </div>
-              <div className="flex h-10 cursor-pointer items-center justify-center rounded-2xl hover:bg-red-600">
-                Month
-              </div>
-              <div className="flex h-10 cursor-pointer items-center justify-center rounded-2xl hover:bg-red-600">
-                Year
-              </div>
-            </div>
-          </div>
         </div>
         <div>
           <ChartByMonth />

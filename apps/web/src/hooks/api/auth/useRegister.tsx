@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 interface RegisterArgs
-  extends Omit<User, "id" | "points" | "role" | "referralCode"> {}
+  extends Omit<User, "id" | "points" | "role" | "referralCode" | "rewards" | "createdAt"> {}
 const useRegister = () => {
   const router = useRouter();
   const { toast } = useToast();

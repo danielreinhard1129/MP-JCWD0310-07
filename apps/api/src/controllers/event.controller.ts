@@ -35,7 +35,7 @@ export class EventController {
   async getEventsController(req: Request, res: Response, next: NextFunction) {
     try {
       const query = {
-        take: parseInt(req.query.take as string) || 10,
+        take: parseInt(req.query.take as string) || 1000000,
         page: parseInt(req.query.page as string) || 1,
         sortBy: (req.query.sortBy as string) || "startEvent",
         sortOrder: (req.query.sortOrder as string) || "desc",
