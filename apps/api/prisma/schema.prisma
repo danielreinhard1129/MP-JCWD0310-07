@@ -82,10 +82,10 @@ model Event {
 }
 
 model Reward {
-  id      Int   @id @default(autoincrement())
+  id      Int  @id @default(autoincrement())
   rewards Int
-  user    User  @relation(fields: [userId], references: [id])
-  userId  Int   @unique
+  user    User @relation(fields: [userId], references: [id])
+  userId  Int  @unique
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -100,8 +100,9 @@ model UserVoucher {
   voucherId Int
   isUse     Boolean
 
-  user    User    @relation(fields: [userId], references: [id])
-  voucher Voucher @relation(fields: [voucherId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  voucher     Voucher       @relation(fields: [voucherId], references: [id])
+  Transaction Transaction[]
 
   @@map("userVouchers")
 }
@@ -122,17 +123,21 @@ model Voucher {
 }
 
 model Transaction {
-  id         Int      @id @default(autoincrement())
-  quantity   Int
-  totalPrice Int
-  expiresAt  DateTime
-  userId     Int
-  status     String   @default("Waiting for Payment")
-  user       User     @relation(fields: [userId], references: [id])
-  eventId    Int
-  event      Event    @relation(fields: [eventId], references: [id])
-  createdAt  DateTime @default(now())
-  updateAt   DateTime @updatedAt
+  id            Int         @id @default(autoincrement())
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
+  amount        Int
+  total         Int
+  event         Event       @relation(fields: [eventId], references: [id])
+  eventId       Int
+  paymentProof  String?
+  isPointUse    Boolean
+  isUseVoucher  Boolean
+  status        String      @default("Pending")
+  createdAt     DateTime    @default(now())
+  updateAt      DateTime    @updatedAt
+  userVoucher   UserVoucher @relation(fields: [userVoucherId], references: [id])
+  userVoucherId Int
 
   @@map("transactions")
 }

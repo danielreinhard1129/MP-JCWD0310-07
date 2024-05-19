@@ -23,7 +23,7 @@ const ChartByMonth = () => {
 
   console.log(transaction);
 
-  // const events = Object.keys(event).map((key) => key);
+ 
   const eventsCountPerMonth = Array(12).fill(0);
   if (event) {
     Object.keys(event).forEach((key) => {

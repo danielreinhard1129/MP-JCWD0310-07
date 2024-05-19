@@ -21,7 +21,7 @@ const useGetTransactionsByOrganizer = (queries: IGetTransactionsQuery) => {
 
   const getTransactions = async () => {
     try {
-      const { data } = await axiosInstance.get('/transaction/organizer', {
+      const { data } = await axiosInstance.get('/transaction/dashboard', {
         params: queries,
       });
 

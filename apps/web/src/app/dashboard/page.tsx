@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ChartByMonth from "./components/ChartByMonth";
+import ChartByYear from "./components/ChartByYear";
 
 const EventDashboard = () => {
   const router = useRouter();
