@@ -8,9 +8,11 @@ import Image from "next/image";
 import SkeletonEventDetail from "./components/SkeletonEventDetail";
 import Markdown from "@/components/Markdown";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
 
 const EventDetail = ({ params }: { params: { id: string } }) => {
   const { event, isLoading } = useGetEvent(Number(params.id));
+  const router = useRouter()
 
   if (isLoading) {
     return (
@@ -57,7 +59,7 @@ const EventDetail = ({ params }: { params: { id: string } }) => {
               <p className="text-base font-bold">{event.location}</p>
             </div>
 
-            <Button >Find Ticket</Button>
+            <Button onClick={() => router.push(`/${params.id}/transaction`)}>Find Ticket</Button>
           </div>
 
           <div className="pt-10">

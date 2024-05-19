@@ -3,8 +3,6 @@
 import { axiosInstance } from "@/lib/axios";
 import { Event } from "@/types/event.type";
 import { AxiosError } from "axios";
-import { error } from "console";
-import { event } from "cypress/types/jquery";
 import { useEffect, useState } from "react";
 
 const useGetEvent = (id: number) => {
