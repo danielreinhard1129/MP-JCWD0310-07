@@ -22,7 +22,7 @@ export class EventRouter {
     );
     this.router.get('/', this.eventController.getEventsController)
     this.router.get('/dashboard/event',this.eventController.getEventsByOrganizerController);
-    // this.router.get('/:id', this.eventController.getEventController)
+    this.router.get('/:id', this.eventController.getEventController)
   }
 
   getRouter(): Router {

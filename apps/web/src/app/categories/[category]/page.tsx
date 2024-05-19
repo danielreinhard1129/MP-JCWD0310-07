@@ -68,6 +68,7 @@ const Page = ({ params }: { params: { category: string } }) => {
         {/* Event List */}
         <div className="grid gap-4">
           {events.map((event, index) => (
+            // eslint-disable-next-line react/jsx-key
             <div className="rounded-md border" style={{ maxWidth: "700px" }}>
               <EventList
                 key={index}

@@ -41,7 +41,7 @@ const Transactions = () => {
             <thead className="flex w-screen border-slate-200 border-b-2 border-t-2 justify-between mr-10 ml-5">
               <th className="ml-4">No</th>
               <th>Title</th>
-              <th></th>
+              <th>Buy Date</th>
               <th>Image</th>
               <th className="mr-4">Approve</th>
             </thead>

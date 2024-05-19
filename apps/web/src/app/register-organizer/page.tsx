@@ -19,6 +19,7 @@ const RegisterOrganizer = () => {
       password: "",
       referralCode: "",
       role: "organizer",
+      rewards: "",
     },
     validationSchema,
     onSubmit: async (values) => {
