@@ -1,21 +1,6 @@
 import { Event } from './event.type';
 import { User } from './user.type';
 
-export interface Transaction {
-  id: number;
-  invoice: string;
-  createdAt: Date;
-  updatedStatus: Date;
-  status: TransactionStatus;
-  total: number;
-  userId: number;
-  eventId: number;
-  paymentProof: string;
-  qty: number;
-
-  user: User;
-  event: Event;
-}
 
 export enum TransactionStatus {
   PENDING = 'PENDING',
@@ -30,4 +15,31 @@ export interface IFormTransaction {
   paymentProof: File[];
   userId?: number;
   eventId?: number;
+}
+
+export interface Transaction {
+    id: number;
+    amount: number;
+    total: number;
+    status: string;
+    eventId: number;
+    userId: number;
+    paymentProof: string;
+    userVoucherId?: number | null;
+
+    event: Event
+    user: User
+}
+
+export interface IFormTransaction {
+    total: number;
+    amount: number;
+    status: string;
+    referralCode: string;
+    userId?: number;
+    eventId?: number
+    transactionId?: number;
+    paymentProof: File[]
+    userVoucherId?: number | null
+
 }

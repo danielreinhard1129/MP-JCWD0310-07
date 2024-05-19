@@ -6,6 +6,7 @@ export interface Event {
   category: string;
   location: string;
   description: string;
+  book: number;
   price: number;
   thumbnail: string;
   userId: number;
