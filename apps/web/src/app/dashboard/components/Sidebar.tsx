@@ -1,11 +1,10 @@
 "use client";
-import AuthGuard from "@/hoc/AuthGuard";
+import AuthGuardOrganizer from "@/hoc/AuthGuardOrganizer";
 import {
   BadgeDollarSign,
   BarChart2,
   Calendar,
   LayoutDashboard,
-  Users,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -13,9 +12,9 @@ const Sidebar = () => {
   const router = useRouter();
   return (
     <div className="col-span-1 bg-white">
-      <div className="flex mt-16 items-center justify-center">
+      <div className="mt-16 flex items-center justify-center">
         <div className="-mt-10 h-[700px] w-80 rounded-3xl bg-slate-700">
-          <div className="flex flex-col justify-start gap-12 pl-20 pt-44 text-xl text-white">
+          <div className="flex flex-col justify-start gap-12 pl-20 pt-60 text-xl text-white">
             <h4
               className="flex cursor-pointer gap-2"
               onClick={() => router.push("/dashboard")}
@@ -37,13 +36,6 @@ const Sidebar = () => {
               <BadgeDollarSign />
               Transactions
             </h4>
-            <h4
-              className="flex cursor-pointer gap-2"
-              onClick={() => router.push("/dashboard/statistic")}
-            >
-              <BarChart2 />
-              Statistics
-            </h4>
           </div>
         </div>
       </div>
@@ -51,4 +43,4 @@ const Sidebar = () => {
   );
 };
 
-export default AuthGuard(Sidebar);
+export default AuthGuardOrganizer(Sidebar);

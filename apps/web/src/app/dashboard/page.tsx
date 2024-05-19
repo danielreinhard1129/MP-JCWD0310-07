@@ -21,6 +21,7 @@ import {
   Users,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import ChartByMonth from "./components/ChartByMonth";
 
 const EventDashboard = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const EventDashboard = () => {
       <div className="col-span-1 flex items-center justify-center bg-white">
         <div className="flex  items-center justify-center">
           <div className="-mt-10 h-[700px] w-80 rounded-3xl bg-slate-700">
-            <div className="mb-14 flex flex-col justify-start gap-12 pl-20 pt-44 text-xl text-white">
+            <div className="mb-14 flex flex-col justify-start gap-12 pl-20 pt-60 text-xl text-white">
               <h4
                 className="flex cursor-pointer gap-2"
                 onClick={() => router.push("/dashboard")}
@@ -62,13 +63,6 @@ const EventDashboard = () => {
                 <BadgeDollarSign />
                 Transactions
               </h4>
-              <h4
-                className="flex cursor-pointer gap-2"
-                onClick={() => router.push("/dashboard/statistic")}
-              >
-                <BarChart2 />
-                Statistics
-              </h4>
             </div>
           </div>
         </div>
@@ -89,6 +83,9 @@ const EventDashboard = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          <ChartByMonth />
         </div>
       </div>
     </div>

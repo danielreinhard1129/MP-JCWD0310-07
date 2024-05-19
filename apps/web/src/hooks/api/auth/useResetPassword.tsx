@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { axiosInstance } from '@/lib/axios';
-import { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { axiosInstance } from "@/lib/axios";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 // interface IForgotPassArgs extends Pick<User, 'email'> {}
 interface ResetPasswordResponse {
@@ -18,7 +18,7 @@ const useResetPassword = () => {
     try {
       setIsLoading(true);
       const { data } = await axiosInstance.patch<ResetPasswordResponse>(
-        '/auth/reset-password',
+        "/auth/reset-password",
         { password },
         {
           headers: {
@@ -29,7 +29,7 @@ const useResetPassword = () => {
 
       toast(data.message);
 
-      router.replace('/');
+      router.replace("/");
     } catch (error) {
       console.log(error);
       if (error instanceof AxiosError) {
