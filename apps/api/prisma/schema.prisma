@@ -37,7 +37,7 @@ model User {
   Coupon       Coupon[]
   UserVoucher  UserVoucher[]
   Voucher      Voucher[]
-  Transaction  Transaction[]
+
 
   @@map("users")
 }
@@ -123,6 +123,32 @@ model Voucher {
   UserVoucher UserVoucher[]
 
   @@map("vouchers")
+}
+
+model UserCoupon {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  couponId Int
+  isUse    Boolean
+
+  user   User   @relation(fields: [userId], references: [id])
+  coupon Coupon @relation(fields: [couponId], references: [id])
+
+  @@map("userCoupons")
+}
+
+model Coupon {
+  id             Int          @id @default(autoincrement())
+  code           String       @unique
+  expirationDate DateTime
+  discountAmount Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  userId         Int
+  user           User         @relation(fields: [userId], references: [id])
+  UserCoupon     UserCoupon[]
+
+  @@map("coupons")
 }
 
 model Transaction {

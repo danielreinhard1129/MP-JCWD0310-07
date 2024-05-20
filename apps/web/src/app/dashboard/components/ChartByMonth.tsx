@@ -90,18 +90,6 @@ const ChartByMonth = () => {
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
-      {
-        label: 'Transaction',
-        data: transactionsCountPerMonth,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-      {
-        label: 'Attendees',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        borderColor: '#14C11A',
-        backgroundColor: '#0D9111',
-      },
     ],
   };
 

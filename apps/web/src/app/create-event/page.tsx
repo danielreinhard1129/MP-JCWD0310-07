@@ -3,7 +3,6 @@
 import Dropzone from "@/components/Dropzone";
 import FormInput from "@/components/FormInput";
 import PreviewImages from "@/components/PreviewImages";
-import RichTextEditor from "@/components/RichTextEditor";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -14,6 +13,11 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { EVENT_CATEGORIES } from "../../../constant";
 import { validationSchema } from "./validationSchema";
+import dynamic from "next/dynamic";
+
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), {
+  ssr: false,
+});
 
 const CreateEvent = () => {
   const { createEvent } = useCreateEvent();
@@ -58,13 +62,11 @@ const CreateEvent = () => {
     },
   });
 
-  console.log(errors)
-
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 py-10">
       <Card className="shadow-lg">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-semibold text-primary">
+          <CardTitle className="text-primary text-3xl font-semibold">
             Create Your Event
           </CardTitle>
         </CardHeader>
@@ -94,9 +96,7 @@ const CreateEvent = () => {
                   ))}
                 </select>
                 {touched.category && errors.category && (
-                  <p className="mt-2 text-sm text-red-500">
-                    {errors.category}
-                  </p>
+                  <p className="mt-2 text-sm text-red-500">{errors.category}</p>
                 )}
               </div>
               <FormInput
@@ -128,9 +128,7 @@ const CreateEvent = () => {
                   className="mt-1 block w-full rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus:outline-none sm:text-sm"
                 />
                 {touched.price && errors.price && (
-                  <p className="mt-2 text-sm text-red-500">
-                    {errors.price}
-                  </p>
+                  <p className="mt-2 text-sm text-red-500">{errors.price}</p>
                 )}
               </div>
               <FormInput
@@ -182,10 +180,7 @@ const CreateEvent = () => {
               <PreviewImages
                 fileImages={values.thumbnail}
                 onRemoveImage={(idx: number) =>
-                  setFieldValue(
-                    "thumbnail",
-                    values.thumbnail.toSpliced(idx, 1)
-                  )
+                  setFieldValue("thumbnail", values.thumbnail.toSpliced(idx, 1))
                 }
               />
               <Dropzone
@@ -211,7 +206,7 @@ const CreateEvent = () => {
           </form>
         </CardContent>
       </Card>
-      <Separator className="my-12"/>
+      <Separator className="my-12" />
     </main>
   );
 };

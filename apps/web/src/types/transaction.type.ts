@@ -10,12 +10,6 @@ export enum TransactionStatus {
   EXPIRED = 'EXPIRED',
 }
 
-export interface IFormTransaction {
-  qty: number;
-  paymentProof: File[];
-  userId?: number;
-  eventId?: number;
-}
 
 export interface Transaction {
     id: number;
@@ -26,6 +20,7 @@ export interface Transaction {
     userId: number;
     paymentProof: string;
     userVoucherId?: number | null;
+    createdAt: string;
 
     event: Event
     user: User

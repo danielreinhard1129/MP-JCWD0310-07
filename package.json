@@ -11,6 +11,7 @@
     "postprepare": "bash -c 'chmod ug+x .husky/*'"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.24.5",
     "@commitlint/cli": "^18.4.2",
     "@commitlint/config-conventional": "^18.4.2",
     "eslint": "^8.48.0",
